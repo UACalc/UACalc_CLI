@@ -4,9 +4,7 @@ This git repository was initially created by importing Ralph Freese's uacalcsrc 
 
 (But first git-cvsimport had to be installed with `sudo apt-get install git-cvsimport`)
 
-I will attempt to keep this git repo reasonably up-to-date with Ralph Freese's uacalcsrc Sourceforge repository by periodically running the command above and then doing:
-
-   git push origin master
+I will attempt to keep this git repo reasonably up-to-date with the Sourceforge cvs repository by periodically running the command above and then doing `git push origin master`.
 
 (But hopefully Ralph will eventually switch to git. :)
 
