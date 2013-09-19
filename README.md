@@ -1,12 +1,10 @@
-This git repository was initially created by importing the uacalcsrc cvs repository from
-sourceforge using the following command:
+This git repository was initially created by importing Ralph Freese's uacalcsrc cvs repository from sourceforge using the following command:
 
     git cvsimport -C ~/git/uacalc -r cvs -k -vA authors-file.txt -d :pserver:anonymous@uacalc.cvs.sourceforge.net:/cvsroot/uacalc uacalcsrc
 
 (But first git-cvsimport had to be installed with `sudo apt-get install git-cvsimport`)
 
-I will attempt to keep this git repo reasonably up-to-date with Ralph Freese's uacalcsrc 
-Sourceforge repository by periodically running the command above and then doing:
+I will attempt to keep this git repo reasonably up-to-date with Ralph Freese's uacalcsrc Sourceforge repository by periodically running the command above and then doing:
 
    git push origin master
 
