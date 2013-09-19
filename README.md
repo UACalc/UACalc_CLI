@@ -2,7 +2,7 @@ The main Universal Algebra Calculator website is http://uacalc.org
 
 This git repository was initially created by importing Ralph Freese's uacalcsrc cvs repository from sourceforge using the following command:
 
-    git cvsimport -C ~/git/uacalc -r cvs -k -vA authors-file.txt -d :pserver:anonymous@uacalc.cvs.sourceforge.net:/cvsroot/uacalc uacalcsrc
+    git cvsimport -C ~/git/uacalc -r cvs -k -v -d :pserver:anonymous@uacalc.cvs.sourceforge.net:/cvsroot/uacalc uacalcsrc
 
 (But first git-cvsimport had to be installed with `sudo apt-get install git-cvsimport`)
 
