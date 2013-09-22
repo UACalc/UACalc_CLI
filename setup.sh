@@ -168,20 +168,11 @@ uacalc_fqname=$uacalc_cli_path'/'$uacalc_name
 echo '         Adding a link to startup script at '$uacalc_link
 if [ -h "$uacalc_link" ]; then
     echo ""
-    echo "         "$uacalc_link" already exists."
-    read -p '         Rename it? [Y/n]' -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-	mv $uacalc_link $uacalc_link'_'$(date +'%Y%m%d:%H:%m')
-	ln -s $uacalc_fqname $uacalc_link
-    else
-	echo 
-	echo "         Okay, then typing "$uacalc_name" might not work, but you can always try"
-	echo "              "$uacalc_fqname
-	echo
-    fi
+    echo "         "$uacalc_link" already exists... saving with date suffix."
+    mv $uacalc_link $uacalc_link'~_'$(date +'%Y%m%d:%H:%m')
+    ln -s $uacalc_fqname $uacalc_link
 else
-	ln -s $uacalc_fqname $uacalc_link
+    ln -s $uacalc_fqname $uacalc_link
 fi
 echo
 echo
