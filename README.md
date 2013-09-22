@@ -12,7 +12,7 @@ There are three ways to install and configure the command line version of the UA
 
 including a script ~/UACalc/UACalc_CLI/uacalc which starts the Jython interpreter with UACalc dependencies preconfigured.
 
-Method 1: Simple Tar file download
+Method 1: simple tar file download
 ----------------------------------
 Assuming you already have Java installed, or you want to install it yourself, this 
 method may work for you and is probably the simplest.
@@ -28,7 +28,7 @@ method may work for you and is probably the simplest.
 
         tar --keep-newer-files xvf UACalc.tar
 
-Method 2: Automatic setup script for Ubuntu
+Method 2: automatic setup script for Ubuntu
 -------------------------------------------
 The setup.sh script in this repository will automatically set up everything on Ubuntu Linux.  
 If you are not using Ubuntu, you can read the comments in the setup.sh file, and do the analogous 
@@ -48,7 +48,7 @@ Method 3: clone this git repository
 If you have git installed, you can clone this repository, and then copy what you need from 
 it into your ~/UACalc directory.
 
-1.  Change to the directory where you want to keep the respository; e.g.,
+1.  Change to the directory where you want to keep the repository; e.g.,
 
         cd ~/git
 
@@ -60,11 +60,11 @@ it into your ~/UACalc directory.
     (depending on what you may already have, or what you'd like to update):
 
         mkdir -p ~/UACalc
-	mkdir -p ~/UACalc/Algebras
-	mkdir -p ~/UACalc/Examples
-	cp -b ~/git/UACalc/Algebras/*.ua ~/UACalc/Algebras/
-	cp -b ~/git/UACalc/Examples/*.py ~/UACalc/Examples/
-	rsync -aiu ~/git/UACalc/UACalc_CLI/ ~/UACalc/UACalc_CLI/
+        mkdir -p ~/UACalc/Algebras
+        mkdir -p ~/UACalc/Examples
+        cp -b ~/git/UACalc/Algebras/*.ua ~/UACalc/Algebras/
+        cp -b ~/git/UACalc/Examples/*.py ~/UACalc/Examples/
+        rsync -aiu ~/git/UACalc/UACalc_CLI/ ~/UACalc/UACalc_CLI/
 
 
 Executing scripts
@@ -77,7 +77,7 @@ You may wish to put a link to this command in your ~/bin directory as follows:
 
     ln -s ~/UACalc/UACalc_CLI/uacalc ~/bin/uacalc
 
-(Note: the file ~/UACalc/UACalc_CLI/uacalc.py has definitions used in an interactive session. The uacalc command invoked above is just shorthand for the following: 
+The file ~/UACalc/UACalc_CLI/uacalc.py has definitions used in an interactive session, and the uacalc command invoked above is just shorthand for the following: 
 
     java -jar ~/UACalc/UACalc_CLI/Jars/jython.jar -i ~/UACalc/UACalc/UACalc_CLI/uacalc.py
 
@@ -110,32 +110,32 @@ The sample interactive session below does the following:
 
 5.  Quit.
 
-    [ralph@mahiloa Jython]$ jython -i uacalc.py 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    Welcome to the command line version of UACalc!
-      to exit type quit()
-      (more help coming)
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    >>> f3 = AlgebraIO.readAlgebraFile("../Algebras/f3.ua")
-    >>> f3.cardinality()
-    3
-    >>> conlat = f3.con().getUniverseList()
-    >>> conlat
-    [|0|1|2|, |0|1,2|, |0,1,2|]
-    >>> theta = conlat[1]
-    >>> theta
-    |0|1,2|
-    >>> one = conlat[2]
-    >>> one
-    |0,1,2|
-    >>> f3.con().commutator(theta,one)
-    |0|1|2|
-    >>> f3.con().commutator(one,theta)
-    |0|1,2|
-    >>> quit()
+        [ralph@mahiloa Jython]$ jython -i uacalc.py 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        Welcome to the command line version of UACalc!
+            to exit type quit()
+            (more help coming)
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        >>> f3 = AlgebraIO.readAlgebraFile("../Algebras/f3.ua")
+        >>> f3.cardinality()
+        3
+        >>> conlat = f3.con().getUniverseList()
+        >>> conlat
+        [|0|1|2|, |0|1,2|, |0,1,2|]
+        >>> theta = conlat[1]
+        >>> theta
+        |0|1,2|
+        >>> one = conlat[2]
+        >>> one
+        |0,1,2|
+        >>> f3.con().commutator(theta,one)
+        |0|1|2|
+        >>> f3.con().commutator(one,theta)
+        |0|1,2|
+        >>> quit()
 
 
-Notes/Reminders for the administrators
+Notes/reminders for the administrators
 --------------------------------------
 To create a new tar file from the git repository, use the following commands:
 
