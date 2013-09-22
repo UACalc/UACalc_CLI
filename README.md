@@ -23,7 +23,7 @@ method may work for you and is probably the simplest.
 
         tar xvf UACalc.tar
 
-    Or, if you already have a ~/UACalc directory, and you can prevent tar from overwriting
+    Or, if you already have a ~/UACalc directory, you can prevent tar from overwriting
     files that are newer than those in the archive with (consider also the -w option):
 
         tar --keep-newer-files xvf UACalc.tar
