@@ -139,11 +139,16 @@ Notes/reminders for the administrators
 --------------------------------------
 To create a new tar file from the git repository, use the following commands:
 
-    cd ~/git  # assuming repository is in ~/git/UACalc
-    tar --exclude=.git --exclude=setup.sh -cvf UACalc.tar UACalc
+    cd ~/git    # assuming repository is in ~/git/UACalc
+    tar --exclude=.git --exclude=setup.sh --exclude=*~ -cvf UACalc.tar UACalc
 
 This excludes the git repository and the setup.sh file from the resulting UACalc.tar file.
 We might also consider the -u (update) option to only append files that are newer than 
 those already in the archive.
 
+
+Problems
+========
+If you have problems, please let us know!  Submit a bug report or send an email to 
+William DeMeo or Ralph Freese.
 

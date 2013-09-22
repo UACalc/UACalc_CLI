@@ -12,8 +12,9 @@ echo 'Here is a summary of what this script does:'
 echo
 echo '    1.  Setup UACalc home directory.'
 echo "    2.  Install Git and clone the UACalc GitHub repository into ~/git/UACalc."
-echo "    3.  Setup Java (openjdk-7-jdk), unless a suitable JRE is already present."
-echo "    4.  Create symbolic link to uacalc command at ~/bin/uacalc."
+echo "    3.  Copy examples and .ua files to ~/UACalc/Algebras and ~/UACalc/Examples."
+echo "    4.  Setup Java (openjdk-7-jdk), unless a suitable JRE is already present."
+echo "    5.  Create symbolic link to uacalc command at ~/bin/uacalc."
 echo
 read -p 'Abort this setup script? [Y/n]' -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]] 
@@ -108,6 +109,8 @@ cp -b $uacalc_git_examples_path/* $uacalc_examples_path/
 # Use rsync with -aiu options to copy UACalc_CLI directory so local files
 # overwritten if and only if they are older than the repository version.
 rsync -aiu $uacalc_git_cli_path/ $uacalc_cli_path/
+
+cp -b $uacalc_git_path/README.md $uacalc_path
 
 echo
 echo "Step 3.  Setting up Java."
