@@ -147,8 +147,5 @@ We might also consider the -u (update) option to only append files that are newe
 those already in the archive.
 
 
-Problems
-========
-If you have problems, please let us know!  Submit a bug report or send an email to 
-William DeMeo or Ralph Freese.
+
 
