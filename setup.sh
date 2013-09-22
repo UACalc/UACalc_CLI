@@ -74,7 +74,7 @@ fi
 echo
 echo "         Checking for newer uacalc.jar..."
 echo
-cd $uacalc_cli_path'/Jars'
+cd $uacalc_git_cli_path'/Jars'
 wget -N http://uacalc.org/uacalc.jar
 cd $uacalc_path
 
