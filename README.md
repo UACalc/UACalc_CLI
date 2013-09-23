@@ -110,13 +110,16 @@ The sample interactive session below does the following:
 
 5.  Quit.
 
-        [ralph@mahiloa Jython]$ jython -i uacalc.py 
+        [ralph@mahiloa:~/UACalc/UACalc_CLI]$ uacalc
+        
+        Starting Jython with UACalc dependencies.  Please be patient...
+
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         Welcome to the command line version of UACalc!
             to exit type quit()
             (more help coming)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        >>> f3 = AlgebraIO.readAlgebraFile("../Algebras/f3.ua")
+        >>> f3 = AlgebraIO.readAlgebraFile("~/UACalc/Algebras/f3.ua")
         >>> f3.cardinality()
         3
         >>> conlat = f3.con().getUniverseList()
