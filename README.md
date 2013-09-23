@@ -119,7 +119,7 @@ The sample interactive session below does the following:
             to exit type quit()
             (more help coming)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        >>> f3 = AlgebraIO.readAlgebraFile("~/UACalc/Algebras/f3.ua")
+        >>> f3 = AlgebraIO.readAlgebraFile("/home/ralph/UACalc/Algebras/f3.ua")
         >>> f3.cardinality()
         3
         >>> conlat = f3.con().getUniverseList()
