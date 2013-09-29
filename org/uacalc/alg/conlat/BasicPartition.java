@@ -240,6 +240,25 @@ public class BasicPartition extends IntArray implements Partition, Comparable {
     return(blockCount);
   }
 
+  /**
+   * Takes a partition in JB form and return
+   * the corresponding Partition. 
+   * JB form is an array <tt>a</tt> with <tt>a[a[i]] = a[i]</tt>
+   * and <tt>{@literal a[i] <= i}</tt>.
+   * 
+   * @param a
+   * @return
+   */
+  public static BasicPartition jbToPartition(int[] a) {
+    int[] ans = new int[a.length];
+    for (int i = 0; i < a.length; i++) {
+      final int k = a[i];
+      ans[k]--;
+      if (k < i) ans[i] = k;
+    }
+    return new BasicPartition(ans);
+  }
+  
   public int rank() {
     return array.length - numberOfBlocks();
   }
@@ -1414,6 +1433,11 @@ public class BasicPartition extends IntArray implements Partition, Comparable {
   static boolean endNow = true;
   
   public static void main(String[] args) {
+    
+    int[] test = new int[] {0,0,2,0};
+    System.out.println(jbToPartition(test));
+    if (endNow) return;
+    
     
     BasicPartition partition = new BasicPartition("|1 2 |3 4|", 8);
     System.out.println(partition.toString(11));  // test the maxLen option
