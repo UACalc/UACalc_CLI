@@ -65,6 +65,7 @@ if [ -d $uacalc_git_path/ ]; then
     git pull
 else
     # Otherwise, change into $HOME/git and clone the git repo.
+    mkdir -p $git_path
     cd $git_path
     git clone https://github.com/UACalc/UACalc.git
 fi
