@@ -98,8 +98,8 @@ print "\nQuick check that we constructed an algebra:"
 print "   alg.getName() = ", alg.getName()        
 print "   alg.universe() = ", alg.universe()
 
-if os.path.exists("../../Algebras"):
-    fqname2 = "../../Algebras/Example2_MutliunaryAlgebra.ua"
+if os.path.exists("../Algebras"):
+    fqname2 = "../Algebras/Example2_MutliunaryAlgebra.ua"
     # Optionally, write the algebra to a UACalc file that can be loaded into the gui.
     AlgebraIO.writeAlgebraFile(alg, fqname2)
     print "UACalc algebra file created:", fqname2
@@ -138,8 +138,8 @@ f2 = 0,2,3,1,0,2,3,1
 ff = f0, f1, f2
 
 name = "Example3"    
-if os.path.exists("../../Algebras"):
-    fqname3 = '../../Algebras/'+name+'.ua'
+if os.path.exists("../Algebras"):
+    fqname3 = '../Algebras/'+name+'.ua'
 else:
     fqname3 = name+'.ua'
 
@@ -165,7 +165,7 @@ print "universe of an algebra of cardinality n with integers {0, 1, ..., n-1}, a
 print "it is important to know to what elements these integers correspond."
 
 print "\nFor example, suppose we read in Polin's algebra from the file polin.ua, and name this algebra P,"
-P = AlgebraIO.readAlgebraFile("../../Algebras/polin.ua")
+P = AlgebraIO.readAlgebraFile("../Algebras/polin.ua")
 
 print "and suppose we then construct an algebra that is the congruence lattice of P (using the convenient"
 print "and fast UACalc con() method), and call this algebra conP."
