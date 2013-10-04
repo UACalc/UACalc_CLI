@@ -5,7 +5,7 @@ Assuming you have Jython installed, this script can be run from the command line
      jython AlgebraConstructionExample.py
      
 Created on Jun 18, 2013
-Updated on Sep 18, 2013
+Updated on Oct 3, 2013
 
 @see: OperationFactory.py
 @author: williamdemeo@gmail.com and ralph@math.hawaii.edu
