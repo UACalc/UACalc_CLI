@@ -15,7 +15,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Uacalc</h1>
+        <h1>UACalc</h1>
         <p>Command line version of the UACalc</p>
 
         <p class="view"><a href="https://github.com/UACalc/UACalc">View the Project on GitHub <small>UACalc/UACalc</small></a></p>
@@ -28,8 +28,9 @@
         </ul>
       </header>
       <section>
-        <h1>
-<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h1>
+<h1>Jython interface to the UACalc</h1>
+        <h2>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
 <p>Jython is an implementation of (the scripting language) Python in Java. It has the advantage (for us) that it can read Java libraries the the uacalc.jar library.  Therefore, the Jython interpreter can be used as a command line interface (CLI) to the UACalc.  </p>
 
@@ -37,8 +38,8 @@
 
 <p>For more information, please visit <a href="http://universalalgebra.wordpress.com/documentation/uacalc/">universalalgebra.org</a>.</p>
 
-<h1>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>There are three ways to install and configure the command line version of the UACalc.  They should all leave you with the following directories:</p>
 
@@ -50,8 +51,8 @@
 <p>including a script ~/UACalc/UACalc_CLI/uacalc which starts the Jython interpreter with UACalc dependencies preconfigured.
 If you try any of the methods described below and you have problems, please <a href="https://github.com/UACalc/UACalc/issues">report the issue</a>.</p>
 
-<h2>
-<a name="method-1-simple-tar-file-download" class="anchor" href="#method-1-simple-tar-file-download"><span class="octicon octicon-link"></span></a>Method 1: simple tar file download</h2>
+<h3>
+<a name="method-1-simple-tar-file-download" class="anchor" href="#method-1-simple-tar-file-download"><span class="octicon octicon-link"></span></a>Method 1: simple tar file download</h3>
 
 <p>Assuming you already have Java installed, or you want to install it yourself, this 
 method may work for you and is probably the simplest.</p>
@@ -71,8 +72,8 @@ files that are newer than those in the archive with (consider also the -w option
 <pre><code>tar --keep-newer-files xvf UACalc.tar
 </code></pre>
 </li>
-</ol><h2>
-<a name="method-2-automatic-setup-script-for-ubuntu" class="anchor" href="#method-2-automatic-setup-script-for-ubuntu"><span class="octicon octicon-link"></span></a>Method 2: automatic setup script for Ubuntu</h2>
+</ol><h3>
+<a name="method-2-automatic-setup-script-for-ubuntu" class="anchor" href="#method-2-automatic-setup-script-for-ubuntu"><span class="octicon octicon-link"></span></a>Method 2: automatic setup script for Ubuntu</h3>
 
 <p>The setup.sh script in this repository will automatically set up everything on Ubuntu Linux.<br>
 If you are not using Ubuntu, you can read the comments in the setup.sh file, and do the analogous 
@@ -85,8 +86,8 @@ works on other flavors of Linux, and eventually on Macs too.)</p>
 <li><p>wget <a href="https://raw.github.com/UACalc/UACalc/master/setup.sh">https://raw.github.com/UACalc/UACalc/master/setup.sh</a></p></li>
 <li><p>chmod a+x setup.sh</p></li>
 <li><p>./setup.sh</p></li>
-</ol><h2>
-<a name="method-3-clone-this-git-repository" class="anchor" href="#method-3-clone-this-git-repository"><span class="octicon octicon-link"></span></a>Method 3: clone this git repository</h2>
+</ol><h3>
+<a name="method-3-clone-this-git-repository" class="anchor" href="#method-3-clone-this-git-repository"><span class="octicon octicon-link"></span></a>Method 3: clone this git repository</h3>
 
 <p>If you have git installed, you can clone this repository, and then copy what you need from 
 it into your ~/UACalc directory.</p>
@@ -116,8 +117,8 @@ cp -b ~/git/UACalc/Examples/*.py ~/UACalc/Examples/
 rsync -aiu ~/git/UACalc/UACalc_CLI/ ~/UACalc/UACalc_CLI/
 </code></pre>
 </li>
-</ol><h1>
-<a name="executing-scripts" class="anchor" href="#executing-scripts"><span class="octicon octicon-link"></span></a>Executing scripts</h1>
+</ol><h2>
+<a name="executing-scripts" class="anchor" href="#executing-scripts"><span class="octicon octicon-link"></span></a>Executing scripts</h2>
 
 <p>Start the Jython interpreter by entering the following at the command line:</p>
 
@@ -144,7 +145,7 @@ rsync -aiu ~/git/UACalc/UACalc_CLI/ ~/UACalc/UACalc_CLI/
 <pre><code>java -jar ~/UACalc/UACalc_CLI/Jars/jython.jar -i ~/UACalc/UACalc/Examples/AlgebraConstructionExample.py
 </code></pre>
 
-<h1>
+<h2>
 <a name="an-interactive-session" class="anchor" href="#an-interactive-session"><span class="octicon octicon-link"></span></a>An interactive session</h1>
 
 <p>You can call some hidden methods: for example, if you go to the javadoc link, click on CongruenceLattice on the left, you will find a method </p>
@@ -204,6 +205,25 @@ tar --exclude=.git --exclude=setup.sh --exclude=*~ -cvf UACalc.tar UACalc
 <p>This excludes the git repository and the setup.sh file from the resulting UACalc.tar file.
 We might also consider the -u (update) option to only append files that are newer than 
 those already in the archive.</p>
+
+<p>
+<h3>GitHub Instructions for maintaining this page</h3>
+After your page is generated, you can check out the new branch:
+<pre><code>$ cd your_repo_root/repo_name
+$ git fetch origin
+$ git checkout gh-pages
+</code></pre>
+</p>
+
+<hr />
+
+<p>
+<h3>
+<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+This page was created on October 12, 2013 by William DeMeo (<a href="https://github.com/williamdemeo" class="user-mention">@williamdemeo</a>).
+</p>
+
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/UACalc">UACalc</a></p>
