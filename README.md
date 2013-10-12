@@ -11,6 +11,7 @@ There are three ways to install and configure the command line version of the UA
     ~/UACalc/UACalc_CLI
 
 including a script ~/UACalc/UACalc_CLI/uacalc which starts the Jython interpreter with UACalc dependencies preconfigured.
+If you try any of the methods described below and you have problems, please file an issue at https://github.com/UACalc/UACalc/issues.
 
 Method 1: simple tar file download
 ----------------------------------
