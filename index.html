@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Uacalc by UACalc</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Uacalc</h1>
+        <p>Command line version of the UACalc</p>
+
+        <p class="view"><a href="https://github.com/UACalc/UACalc">View the Project on GitHub <small>UACalc/UACalc</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/UACalc/UACalc/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/UACalc/UACalc/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/UACalc/UACalc">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h1>
+
+<p>Jython is an implementation of (the scripting language) Python in Java. It has the advantage (for us) that it can read Java libraries the the uacalc.jar library.  Therefore, the Jython interpreter can be used as a command line interface (CLI) to the UACalc.  </p>
+
+<p>(The functional programming language Scala provides an alternative CLI to the UACalc, as described <a href="http://universalalgebra.wordpress.com/documentation/scala/scala-repl-with-uacalc-objects/">here</a>.)</p>
+
+<p>For more information, please visit <a href="http://universalalgebra.wordpress.com/documentation/uacalc/">universalalgebra.org</a>.</p>
+
+<h1>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<p>There are three ways to install and configure the command line version of the UACalc.  They should all leave you with the following directories:</p>
+
+<pre><code>~/UACalc/Algebras
+~/UACalc/Examples
+~/UACalc/UACalc_CLI
+</code></pre>
+
+<p>including a script ~/UACalc/UACalc_CLI/uacalc which starts the Jython interpreter with UACalc dependencies preconfigured.
+If you try any of the methods described below and you have problems, please <a href="https://github.com/UACalc/UACalc/issues">report the issue</a>.</p>
+
+<h2>
+<a name="method-1-simple-tar-file-download" class="anchor" href="#method-1-simple-tar-file-download"><span class="octicon octicon-link"></span></a>Method 1: simple tar file download</h2>
+
+<p>Assuming you already have Java installed, or you want to install it yourself, this 
+method may work for you and is probably the simplest.</p>
+
+<ol>
+<li> Download the UACalc.tar file from: <a href="http://uacalc.org/Jython/UACalc.tar">http://uacalc.org/Jython/UACalc.tar</a>
+and put it in your home directory.</li>
+<li>
+<p>Extract this tar archive into your home directory with a command like the following:</p>
+
+<pre><code>tar xvf UACalc.tar
+</code></pre>
+
+<p>Or, if you already have a ~/UACalc directory, you can prevent tar from overwriting
+files that are newer than those in the archive with (consider also the -w option):</p>
+
+<pre><code>tar --keep-newer-files xvf UACalc.tar
+</code></pre>
+</li>
+</ol><h2>
+<a name="method-2-automatic-setup-script-for-ubuntu" class="anchor" href="#method-2-automatic-setup-script-for-ubuntu"><span class="octicon octicon-link"></span></a>Method 2: automatic setup script for Ubuntu</h2>
+
+<p>The setup.sh script in this repository will automatically set up everything on Ubuntu Linux.<br>
+If you are not using Ubuntu, you can read the comments in the setup.sh file, and do the analogous 
+steps for your platform.  (We are in the process of generalizing the setup.sh script so that it 
+works on other flavors of Linux, and eventually on Macs too.)</p>
+
+<p>Issue the following commands in a terminal window (at the shell prompt):</p>
+
+<ol>
+<li><p>wget <a href="https://raw.github.com/UACalc/UACalc/master/setup.sh">https://raw.github.com/UACalc/UACalc/master/setup.sh</a></p></li>
+<li><p>chmod a+x setup.sh</p></li>
+<li><p>./setup.sh</p></li>
+</ol><h2>
+<a name="method-3-clone-this-git-repository" class="anchor" href="#method-3-clone-this-git-repository"><span class="octicon octicon-link"></span></a>Method 3: clone this git repository</h2>
+
+<p>If you have git installed, you can clone this repository, and then copy what you need from 
+it into your ~/UACalc directory.</p>
+
+<ol>
+<li>
+<p>Change to the directory where you want to keep the repository; e.g.,</p>
+
+<pre><code>cd ~/git
+</code></pre>
+</li>
+<li>
+<p>Clone the repository:</p>
+
+<pre><code>git clone git@github.com:UACalc/UACalc.git
+</code></pre>
+</li>
+<li>
+<p>Copy what you need into the right places; e.g., some subset of the following commands,
+(depending on what you may already have, or what you'd like to update):</p>
+
+<pre><code>mkdir -p ~/UACalc
+mkdir -p ~/UACalc/Algebras
+mkdir -p ~/UACalc/Examples
+cp -b ~/git/UACalc/Algebras/*.ua ~/UACalc/Algebras/
+cp -b ~/git/UACalc/Examples/*.py ~/UACalc/Examples/
+rsync -aiu ~/git/UACalc/UACalc_CLI/ ~/UACalc/UACalc_CLI/
+</code></pre>
+</li>
+</ol><h1>
+<a name="executing-scripts" class="anchor" href="#executing-scripts"><span class="octicon octicon-link"></span></a>Executing scripts</h1>
+
+<p>Start the Jython interpreter by entering the following at the command line:</p>
+
+<pre><code>~/UACalc/UACalc_CLI/uacalc
+</code></pre>
+
+<p>You may wish to put a link to this command in your ~/bin directory as follows:</p>
+
+<pre><code>ln -s ~/UACalc/UACalc_CLI/uacalc ~/bin/uacalc
+</code></pre>
+
+<p>The file ~/UACalc/UACalc_CLI/uacalc.py has definitions used in an interactive session, and the uacalc command invoked above is just shorthand for the following: </p>
+
+<pre><code>java -jar ~/UACalc/UACalc_CLI/Jars/jython.jar -i ~/UACalc/UACalc/UACalc_CLI/uacalc.py
+</code></pre>
+
+<p>Look at the file ~/UACalc/Examples/AlgebraConstructionExample.py.  This is an example script showing how to use python to construct an algebra.  If you have Jython installed separately, you can run the commands in this file by typing  </p>
+
+<pre><code>jython AlgebraConstructionExample.py 
+</code></pre>
+
+<p>in a terminal window.  This will create two algebra files in the Algebras directory (which can be loaded into UACalc).  If you don't have Jython installed separately, you can run the file with</p>
+
+<pre><code>java -jar ~/UACalc/UACalc_CLI/Jars/jython.jar -i ~/UACalc/UACalc/Examples/AlgebraConstructionExample.py
+</code></pre>
+
+<h1>
+<a name="an-interactive-session" class="anchor" href="#an-interactive-session"><span class="octicon octicon-link"></span></a>An interactive session</h1>
+
+<p>You can call some hidden methods: for example, if you go to the javadoc link, click on CongruenceLattice on the left, you will find a method </p>
+
+<pre><code>commutator(BinaryRelation S, BinaryRelation T). 
+</code></pre>
+
+<p>(There are also methods for the weak and strong rectangularity commutators, as well as centrality methods.)</p>
+
+<p>The sample interactive session below does the following:</p>
+
+<ol>
+<li><p>Read in the algebra f3 (the reduct of the three element field to multiplication).</p></li>
+<li><p>Check its cardinality.</p></li>
+<li><p>Define theta to be the nontrivial congruence and define one to be the top.</p></li>
+<li><p>Check the commutator [theta,one] = zero but [one,theta] = theta.</p></li>
+<li>
+<p>Quit.</p>
+
+<pre><code>[ralph@mahiloa:~/UACalc/UACalc_CLI]$ uacalc
+
+Starting Jython with UACalc dependencies.  Please be patient...
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Welcome to the command line version of UACalc!
+    to exit type quit()
+    (more help coming)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+&gt;&gt;&gt; f3 = AlgebraIO.readAlgebraFile("/home/ralph/UACalc/Algebras/f3.ua")
+&gt;&gt;&gt; f3.cardinality()
+3
+&gt;&gt;&gt; conlat = f3.con().getUniverseList()
+&gt;&gt;&gt; conlat
+[|0|1|2|, |0|1,2|, |0,1,2|]
+&gt;&gt;&gt; theta = conlat[1]
+&gt;&gt;&gt; theta
+|0|1,2|
+&gt;&gt;&gt; one = conlat[2]
+&gt;&gt;&gt; one
+|0,1,2|
+&gt;&gt;&gt; f3.con().commutator(theta,one)
+|0|1|2|
+&gt;&gt;&gt; f3.con().commutator(one,theta)
+|0|1,2|
+&gt;&gt;&gt; quit()
+</code></pre>
+</li>
+</ol><h2>
+<a name="notesreminders-for-the-administrators" class="anchor" href="#notesreminders-for-the-administrators"><span class="octicon octicon-link"></span></a>Notes/reminders for the administrators</h2>
+
+<p>To create a new tar file from the git repository, use the following commands:</p>
+
+<pre><code>cd ~/git    # assuming repository is in ~/git/UACalc
+tar --exclude=.git --exclude=setup.sh --exclude=*~ -cvf UACalc.tar UACalc
+</code></pre>
+
+<p>This excludes the git repository and the setup.sh file from the resulting UACalc.tar file.
+We might also consider the -u (update) option to only append files that are newer than 
+those already in the archive.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/UACalc">UACalc</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
