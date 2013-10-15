@@ -1,3 +1,6 @@
+This is the main Git repository for UACalc.  If you don't use Git, you might prefer [this page](http://uacalc.github.io/UACalc/).
+
+
 Introduction
 ============
 Jython is an implementation of (the scripting language) Python in Java. It has the advantage (for us) that it can read Java libraries the the uacalc.jar library.  Therefore, the Jython interpreter can be used as a command line interface (CLI) to the UACalc.  
