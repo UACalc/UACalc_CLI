@@ -97,6 +97,7 @@ public class UACalculator2 extends JFrame implements UACalc {
   private javax.swing.JMenuItem newMI;
   private javax.swing.JMenuItem nuMI;
   private javax.swing.JMenuItem wnuMI;
+  private javax.swing.JMenuItem edgeMI;
   private javax.swing.JTable opTable;
   private TableModel emptyOpTableModel;
   private javax.swing.JScrollPane opTableScrollPane;
@@ -140,6 +141,14 @@ public class UACalculator2 extends JFrame implements UACalc {
   private javax.swing.JMenuItem sdIdempotentMI;
   private javax.swing.JMenuItem sdMeetIdempotentMI;
   private javax.swing.JMenuItem permIdempotentMI;
+  private javax.swing.JMenuItem cyclicTermIdempotentMI;
+  private javax.swing.JMenuItem nuTermIdempotentMI;
+  private javax.swing.JMenuItem edgeTermIdempotentMI;
+  private javax.swing.JMenuItem fixedKEdgeTermIdempotentMI;
+  private javax.swing.JMenu equationsMenu;
+  private javax.swing.JMenuItem equationCheckerMI;
+  private javax.swing.JMenuItem assocCheckerMI;
+  private javax.swing.JMenuItem commutivityCheckerMI;
 
 
 
@@ -356,6 +365,7 @@ public class UACalculator2 extends JFrame implements UACalc {
     wnuMI = new javax.swing.JMenuItem();
     mmstMI = new javax.swing.JMenuItem();
     w3edgeTermMI = new javax.swing.JMenuItem();
+    edgeMI = new javax.swing.JMenuItem();
     drawingMenu = new javax.swing.JMenu();
     drawConMI = new javax.swing.JMenuItem();
     drawSubMI = new javax.swing.JMenuItem();
@@ -376,6 +386,15 @@ public class UACalculator2 extends JFrame implements UACalc {
     sdIdempotentMI = new javax.swing.JMenuItem();
     sdMeetIdempotentMI = new javax.swing.JMenuItem();
     permIdempotentMI = new javax.swing.JMenuItem();
+    cyclicTermIdempotentMI = new javax.swing.JMenuItem();
+    nuTermIdempotentMI = new javax.swing.JMenuItem();
+    edgeTermIdempotentMI = new javax.swing.JMenuItem();
+    fixedKEdgeTermIdempotentMI = new javax.swing.JMenuItem();
+    equationsMenu = new javax.swing.JMenu();
+    equationCheckerMI = new javax.swing.JMenuItem();
+    assocCheckerMI = new javax.swing.JMenuItem();
+    commutivityCheckerMI = new javax.swing.JMenuItem();
+
     
     
     
@@ -542,7 +561,8 @@ xxx;
     
     jScrollPane5.setBorder(javax.swing.BorderFactory.createTitledBorder("Algebras"));
     
-    msgTextField.setText("Welcome to the Universal Algebra Calculator!");
+    msgTextField.setText("Welcome to the Universal Algebra Calculator! " 
+        + "For instructions use Help -> Instructions.");
     
     delAlg.setText("Delete");
     delAlg.addActionListener(new java.awt.event.ActionListener() {
@@ -814,6 +834,14 @@ xxx;
         }
     });
     maltsevMenu.add(pixleyMI);
+    
+    edgeMI.setText("edge term");
+    edgeMI.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          edgeMIActionPerformed(evt);
+        }
+    });
+    maltsevMenu.add(edgeMI);
 
     nuMI.setText("near unanimity term");
     nuMI.addActionListener(new java.awt.event.ActionListener() {
@@ -912,6 +940,31 @@ xxx;
     });
     varPropIdemMenu.add(kNUIdempotentMI);
     
+    nuTermIdempotentMI.setText("NU for some k");
+    nuTermIdempotentMI.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            nuTermIdempotentMIActionPerformed(evt);
+        }
+    });
+    varPropIdemMenu.add(nuTermIdempotentMI);
+    
+    fixedKEdgeTermIdempotentMI.setText("k Edge term");
+    fixedKEdgeTermIdempotentMI.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            fixedKEdgeTermIdempotentMIActionPerformed(evt);
+        }
+    });
+    varPropIdemMenu.add(fixedKEdgeTermIdempotentMI);
+  
+    edgeTermIdempotentMI.setText("Edge term some k");
+    edgeTermIdempotentMI.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            edgeTermIdempotentMIActionPerformed(evt);
+        }
+    });
+    varPropIdemMenu.add(edgeTermIdempotentMI);
+  
+    
     majorityIdempotentMI.setText("Does A have a maj term");
     majorityIdempotentMI.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -945,9 +998,46 @@ xxx;
     });
     varPropIdemMenu.add(permIdempotentMI);
     
+    cyclicTermIdempotentMI.setText("Does A support a cyclic term");
+    cyclicTermIdempotentMI.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          cyclicTermIdempotentMIActionPerformed(evt);
+        }
+    });
+    varPropIdemMenu.add(cyclicTermIdempotentMI);
+    
     
     jMenuBar1.add(varPropIdemMenu);
     
+    equationsMenu.setText("Equations");
+    equationsMenu.setToolTipText("Check equations in A");
+
+    equationCheckerMI.setText("check equation");
+    equationCheckerMI.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          equationCheckerMIActionPerformed(evt);
+        }
+    });
+    equationsMenu.add(equationCheckerMI);
+    
+    assocCheckerMI.setText("associative ops");
+    assocCheckerMI.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          assocCheckerMIActionPerformed(evt);
+        }
+    });
+    equationsMenu.add(assocCheckerMI);
+    
+    commutivityCheckerMI.setText("gen commutative ops");
+    commutivityCheckerMI.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          commutivityCheckerMIActionPerformed(evt);
+        }
+    });
+    equationsMenu.add(commutivityCheckerMI);
+ 
+    jMenuBar1.add(equationsMenu);
+ 
     
     drawingMenu.setText("Drawing");
 
@@ -1440,6 +1530,10 @@ xxx;
     getComputationsController().setupHagemannMitschkeTermsTask();
   }//GEN-LAST:event_nPermMIActionPerformed
 
+  private void edgeMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuMIActionPerformed
+    getComputationsController().setupEdgeTermTask();
+  }//GEN-LAST:event_nuMIActionPerformed
+  
   private void nuMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuMIActionPerformed
     getComputationsController().setupNUTermTask();
   }//GEN-LAST:event_nuMIActionPerformed
@@ -1578,6 +1672,34 @@ xxx;
   
   private void permIdempotentMIActionPerformed(java.awt.event.ActionEvent evt) {
     getComputationsController().setupPermIdempotentTask();
+  }
+  
+  private void cyclicTermIdempotentMIActionPerformed(java.awt.event.ActionEvent evt) {
+    getComputationsController().setupCyclicTermIdempotentTask();
+  }
+  
+  private void nuTermIdempotentMIActionPerformed(java.awt.event.ActionEvent evt) {
+    getComputationsController().setupNUTermIdempotentTask();
+  }
+  
+  private void edgeTermIdempotentMIActionPerformed(java.awt.event.ActionEvent evt) {
+    getComputationsController().setupEdgeTermIdempotentTask();
+  }
+  
+  private void fixedKEdgeTermIdempotentMIActionPerformed(java.awt.event.ActionEvent evt) {
+    getComputationsController().setupFixedKEdgeTermIdempotentTask();
+  }
+  
+  private void equationCheckerMIActionPerformed(java.awt.event.ActionEvent evt) {
+    getComputationsController().setupEquationCheckTask();
+  }
+  
+  private void assocCheckerMIActionPerformed(java.awt.event.ActionEvent evt) {
+    getComputationsController().setupAssociativeCheckTask();
+  }
+  
+  private void commutivityCheckerMIActionPerformed(java.awt.event.ActionEvent evt) {
+    getComputationsController().setupGenCommutivityCheckTask();
   }
 
   private void delAlgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delAlgActionPerformed

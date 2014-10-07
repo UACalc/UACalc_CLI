@@ -28,6 +28,13 @@ public interface Term {
    * The leading operation symbol or null if this term is a variable.
    */
   public OperationSymbol leadingOperationSymbol();
+  
+  /**
+   * The set of operation symbols or null for a variable.
+   * 
+   * @return set of operation symbols
+   */
+  public Set<OperationSymbol> getOperationSymbols();
 
   /**
    * A list of terms which are the immediate children.
@@ -46,7 +53,7 @@ public interface Term {
    * The int evaluation of this term in an algebra using <code>map</code> as
    * the variable assignment.
    */
-  public int intEval(Algebra alg, Map map);
+  public int intEval(Algebra alg, Map<Variable,Integer> map);
 
   /**
    * The interpretation of this term in an algebra; that is, the

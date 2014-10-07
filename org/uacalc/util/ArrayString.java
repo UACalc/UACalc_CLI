@@ -8,7 +8,7 @@ import java.lang.reflect.*;
  * A static method to print out an array based on Java Tech Tips, Feb 5, 2002.
  *
  * @author Ralph Freese
- * @version $Id$
+ * @version $Id: ArrayString.java,v 1.1.1.1 2006/01/05 00:47:25 ralphfreese Exp $
  */
 public class ArrayString {
 

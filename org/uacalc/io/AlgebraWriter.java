@@ -13,7 +13,7 @@ import org.uacalc.util.*;
  * algebras. For now we will have just single algebras.
  *
  * @author Ralph Freese
- * @version $Id$
+ * @version $Id: AlgebraWriter.java,v 1.5 2013/08/26 17:35:29 ralphfreese Exp $
  */
 public final class AlgebraWriter {
 

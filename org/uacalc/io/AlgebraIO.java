@@ -14,7 +14,7 @@ import org.uacalc.util.*;
  * Reader and writers.
  *
  * @author Ralph Freese
- * @version $Id$
+ * @version $Id: AlgebraIO.java,v 1.9 2012/02/17 05:46:40 ralphfreese Exp $
  */
 public final class AlgebraIO {
 

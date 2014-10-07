@@ -18,6 +18,7 @@ import org.uacalc.ui.table.TermTableModel.ResultTableType;
 import org.uacalc.ui.tm.*;
 import org.uacalc.ui.util.*;
 import org.uacalc.util.*;
+import org.uacalc.alg.sublat.BasicSet;
 
 public class ComputationsController {
   
@@ -1361,6 +1362,66 @@ public class ComputationsController {
     BackgroundExec.getBackgroundExec().execute(wnuTask);
   }
   
+  public void setupEdgeTermTask() {
+    final GUIAlgebra gAlg = uacalcUI.getMainController().getCurrentAlgebra();
+    if (!isAlgOK(gAlg)) return;
+    final SmallAlgebra alg = gAlg.getAlgebra();
+    final int k = getNumberDialog(2, "k edge term: what k (at least 2). Arity will be k + 1.", "k Edge term");
+    if (!(k > 1)) return;
+    final ProgressReport report = new ProgressReport(taskTableModel, uacalcUI.getLogTextArea());
+    final TermTableModel ttm = new TermTableModel();
+    termTableModels.add(ttm);
+    setResultTableColWidths();
+    final String desc = "k edge term (arity " + (k+1) +  ") over " + gAlg.toString(true);
+    ttm.setDescription(desc);
+    uacalcUI.getResultTextField().setText(desc);
+    final BackgroundTask<Term>  edgeTask = new BackgroundTask<Term>(report) {
+      public Term compute() {
+        //monitorPanel.getProgressMonitor().reset();
+        report.addStartLine(desc);
+        report.setDescription(desc);
+        Term edgeTerm = Malcev.fixedKEdgeTerm(alg, k, report);
+        return edgeTerm;
+      }
+      public void onCompletion(Term edgeTerm, Throwable exception, 
+                               boolean cancelled, boolean outOfMemory) {
+        if (outOfMemory) {
+          report.addEndingLine("Out of memory!!!");
+          ttm.setDescription(desc + " (insufficient memory)");
+          updateResultTextField(this, ttm);
+          return;
+        }
+        if (!cancelled) {
+          if (edgeTerm == null) {
+            report.addEndingLine("The variety has no " + k + " edge term ");
+            ttm.setDescription(desc + ": there is none.");
+            updateResultTextField(this, ttm);
+            uacalcUI.repaint();
+          }
+          else {
+            report.addEndingLine("Found an edge term: " + edgeTerm);
+            ttm.setDescription(desc + " " + edgeTerm);
+            java.util.List<Term> terms = new ArrayList<Term>(1);
+            terms.add(edgeTerm);
+            ttm.setTerms(terms);
+          }
+          if ( this.equals(getCurrentTask())) setResultTableColWidths();
+        }
+        else {
+          report.addEndingLine("Computation cancelled");
+          ttm.setDescription(desc + " (cancelled)");
+          updateResultTextField(this, ttm);
+          uacalcUI.repaint();
+        }
+      }
+    };
+    addTask(edgeTask);
+    MainController.scrollToBottom(uacalcUI.getComputationsTable());
+    uacalcUI.getResultTable().setModel(ttm);
+    BackgroundExec.getBackgroundExec().execute(edgeTask);
+  }
+  
+  
   public void setupJICongruencesTask() {
     final GUIAlgebra gAlg = uacalcUI.getMainController().getCurrentAlgebra();
     if (!isAlgOK(gAlg)) return;
@@ -2062,9 +2123,10 @@ public class ComputationsController {
           return;
         }
         if (!cancelled) {
-          String str = "The type set is " + bounds.get(0);
+          String str = "The type set is " + bounds.get(0) + ".";
           if (!bounds.get(0).equals(bounds.get(1))) {
-            str = "The type set contains " + bounds.get(0) + " and is contained in " + bounds.get(1);
+            str = "The type set contains " + bounds.get(0) 
+                + " and is contained in " + bounds.get(1) + ".";
           }
           report.addEndingLine(str);
           ttm.setDescription(desc + " " + str);
@@ -2209,6 +2271,7 @@ public class ComputationsController {
     BackgroundExec.getBackgroundExec().execute(CMTask);
   }
   
+  
   public void setupkPermIdempotentTask() {
     final GUIAlgebra gAlg = uacalcUI.getMainController().getCurrentAlgebra();
     if (!isAlgOK(gAlg)) return;
@@ -2236,7 +2299,8 @@ public class ComputationsController {
         //monitorPanel.getProgressMonitor().reset();
         report.addStartLine(desc);
         report.setDescription(desc);
-        Set<Integer> typesFound = Malcev.typesInSofAIdempotent(alg, null);// suppress report's output
+        Set<Integer> typesFound = new TreeSet<Integer>();
+        typesFound = Malcev.typesInSofAStrictlySimpleIdempotent(alg, typesFound, null);// suppress report's output
         //List<Set<Integer>> bounds = Malcev.typeSetIdempotent(alg, report);
         //Set<Integer> omittedTypes = Malcev.omittedIdealIdempotent(alg, report);
         boolean isKPerm = true;
@@ -2752,6 +2816,629 @@ public class ComputationsController {
     BackgroundExec.getBackgroundExec().execute(omittedTypesTask);
   }
   
+  public void setupEdgeTermIdempotentTask() {
+    final GUIAlgebra gAlg = uacalcUI.getMainController().getCurrentAlgebra();
+    if (!isAlgOK(gAlg)) return;
+    final SmallAlgebra alg = gAlg.getAlgebra();
+    if (!alg.isIdempotent()) {
+      JOptionPane.showMessageDialog(uacalcUI.getFrame(),
+          "<html>The current algebra must be idempotent.<br>",
+          "Non idempotent algebra error",
+          JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    final ProgressReport report = new ProgressReport(taskTableModel, uacalcUI.getLogTextArea());
+    final TermTableModel ttm = new TermTableModel();
+    termTableModels.add(ttm);
+    setResultTableColWidths();
+    final String desc = "Does " + gAlg.toString(true) + " have an edge term.";
+    ttm.setDescription(desc);
+    uacalcUI.getResultTextField().setText(desc);
+    final BackgroundTask<List<BasicSet>>  edgeTermTask = new BackgroundTask<List<BasicSet>>(report) {
+      public List<BasicSet> compute() {
+        report.addStartLine(desc);
+        report.setDescription(desc);
+        List<BasicSet> ans = Malcev.cubeTermBlockerIdempotent(alg, report);
+        return ans;
+      }
+      public void onCompletion(List<BasicSet> ans, Throwable exception, 
+          boolean cancelled, boolean outOfMemory) {
+        System.out.println("exception: " + exception);
+        if (outOfMemory) {
+          report.addEndingLine("Out of memory!!!");
+          ttm.setDescription(desc + " (insufficient memory)");
+          updateResultTextField(this, ttm);
+          return;
+        }
+        if (!cancelled) {
+          report.addEndingLine("Done");
+          String extra = ans == null ? " It does have an edge term." : 
+            " It does not have an edge term. Cube term blocker: " + ans;
+          ttm.setDescription(desc + " " + extra);
+          updateResultTextField(this, ttm);
+          List<Term> fake = new ArrayList<Term>();
+          ttm.setTerms(fake);
+
+          if ( this.equals(getCurrentTask())) setResultTableColWidths();
+        }
+        else {
+          report.addEndingLine("Computation cancelled");
+          ttm.setDescription(desc + " (cancelled)");
+          updateResultTextField(this, ttm);
+          uacalcUI.repaint();
+        }
+      }
+    };
+    addTask(edgeTermTask);
+    MainController.scrollToBottom(uacalcUI.getComputationsTable());
+    uacalcUI.getResultTable().setModel(ttm);
+    BackgroundExec.getBackgroundExec().execute(edgeTermTask);
+  }
+
+  public void setupFixedKEdgeTermIdempotentTask() {
+    final GUIAlgebra gAlg = uacalcUI.getMainController().getCurrentAlgebra();
+    if (!isAlgOK(gAlg)) return;
+    final SmallAlgebra alg = gAlg.getAlgebra();
+    if (!alg.isIdempotent()) {
+      JOptionPane.showMessageDialog(uacalcUI.getFrame(),
+          "<html>The current algebra must be idempotent.<br>",
+              "Non idempotent algebra error",
+              JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    final int k = getNumberDialog(2, "k edge term: what k (at least 2). Arity will be k + 1.", "k Edge term");
+    if (!(k > 1)) return;
+    final ProgressReport report = new ProgressReport(taskTableModel, uacalcUI.getLogTextArea());
+    final TermTableModel ttm = new TermTableModel();
+    termTableModels.add(ttm);
+    setResultTableColWidths();
+    final String desc = "Does " + gAlg.toString(true) + " have a " + k + " edge term (arity " + (k+1) + ").";
+    ttm.setDescription(desc);
+    uacalcUI.getResultTextField().setText(desc);
+    final BackgroundTask<Boolean>  edgeTermTask = new BackgroundTask<Boolean>(report) {
+      public Boolean compute() {
+        report.addStartLine(desc);
+        report.setDescription(desc);
+        boolean ans = Malcev.fixedKEdgeIdempotent(alg, k, report);
+        return ans;
+      }
+      public void onCompletion(Boolean ans, Throwable exception, 
+                               boolean cancelled, boolean outOfMemory) {
+        System.out.println("exception: " + exception);
+        if (outOfMemory) {
+          report.addEndingLine("Out of memory!!!");
+          ttm.setDescription(desc + " (insufficient memory)");
+          updateResultTextField(this, ttm);
+          return;
+        }
+        if (!cancelled) {
+          report.addEndingLine("Done");
+          String extra = ans ? " It does have a " + k + " edge term." : " It does not have a " + k + " edge term.";
+          ttm.setDescription(desc + " " + extra);
+          updateResultTextField(this, ttm);
+          List<Term> fake = new ArrayList<Term>();
+          ttm.setTerms(fake);
+
+          if ( this.equals(getCurrentTask())) setResultTableColWidths();
+        }
+        else {
+          report.addEndingLine("Computation cancelled");
+          ttm.setDescription(desc + " (cancelled)");
+          updateResultTextField(this, ttm);
+          uacalcUI.repaint();
+        }
+      }
+    };
+    addTask(edgeTermTask);
+    MainController.scrollToBottom(uacalcUI.getComputationsTable());
+    uacalcUI.getResultTable().setModel(ttm);
+    BackgroundExec.getBackgroundExec().execute(edgeTermTask);
+  }
+  
+  public void setupNUTermIdempotentTask() {
+    final GUIAlgebra gAlg = uacalcUI.getMainController().getCurrentAlgebra();
+    if (!isAlgOK(gAlg)) return;
+    final SmallAlgebra alg = gAlg.getAlgebra();
+    if (!alg.isIdempotent()) {
+      JOptionPane.showMessageDialog(uacalcUI.getFrame(),
+          "<html>The current algebra must be idempotent.<br>",
+          "Non idempotent algebra error",
+          JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    final ProgressReport report = new ProgressReport(taskTableModel, uacalcUI.getLogTextArea());
+    final TermTableModel ttm = new TermTableModel();
+    termTableModels.add(ttm);
+    setResultTableColWidths();
+    final String desc = "Does " + gAlg.toString(true) + " have an near unamimity term.";
+    ttm.setDescription(desc);
+    uacalcUI.getResultTextField().setText(desc);
+    final BackgroundTask<List<BasicSet>>  nuTermTask = new BackgroundTask<List<BasicSet>>(report) {
+      public List<BasicSet> compute() {
+        report.addStartLine(desc);
+        report.addLine("Testing for both an edge term and congruence SD-meet.");
+        report.setDescription(desc);
+        List<BasicSet> ans = Malcev.cubeTermBlockerIdempotent(alg, report);
+        if (ans != null) return ans;
+        if (Malcev.sdMeetIdempotent(alg, report) != null) {
+          return new ArrayList<BasicSet>(); // return an empty list to indicate it is not SD-meet.
+        }
+        return ans;
+      }
+      public void onCompletion(List<BasicSet> ans, Throwable exception, 
+          boolean cancelled, boolean outOfMemory) {
+        System.out.println("exception: " + exception);
+        if (outOfMemory) {
+          report.addEndingLine("Out of memory!!!");
+          ttm.setDescription(desc + " (insufficient memory)");
+          updateResultTextField(this, ttm);
+          return;
+        }
+        if (!cancelled) {
+          report.addEndingLine("Done");
+          String extra;
+          if (ans == null) extra  = " It does have an NU term.";
+          else {
+            if (ans.isEmpty()) extra = " V(A) is not congruence SD-meet so cannot have an NU term.";
+            else extra = " V(A) has a cube term blocker: " + ans + ", so cannot have an NU term.";
+          }
+          ttm.setDescription(desc + " " + extra);
+          updateResultTextField(this, ttm);
+          List<Term> fake = new ArrayList<Term>();
+          ttm.setTerms(fake);
+
+          if ( this.equals(getCurrentTask())) setResultTableColWidths();
+        }
+        else {
+          report.addEndingLine("Computation cancelled");
+          ttm.setDescription(desc + " (cancelled)");
+          updateResultTextField(this, ttm);
+          uacalcUI.repaint();
+        }
+      }
+    };
+    addTask(nuTermTask);
+    MainController.scrollToBottom(uacalcUI.getComputationsTable());
+    uacalcUI.getResultTable().setModel(ttm);
+    BackgroundExec.getBackgroundExec().execute(nuTermTask);
+  }
+
+  
+  public void setupCyclicTermIdempotentTask() {
+    final GUIAlgebra gAlg = uacalcUI.getMainController().getCurrentAlgebra();
+    if (!isAlgOK(gAlg)) return;
+    final SmallAlgebra alg = gAlg.getAlgebra();
+    if (!alg.isIdempotent()) {
+      JOptionPane.showMessageDialog(uacalcUI.getFrame(),
+          "<html>The current algebra must be idempotent.<br>",
+              "Non idempotent algebra error",
+              JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    final int arity = getNumberDialog(2, "What arity (at least 2)?", "Arity");
+    if (arity < 2) return;
+    final ProgressReport report = new ProgressReport(taskTableModel, uacalcUI.getLogTextArea());
+    final TermTableModel ttm = new TermTableModel();
+    termTableModels.add(ttm);
+    setResultTableColWidths();
+    final String desc = "Does " + gAlg.toString(true) + " have a cyclic term of arity " + arity + ".";
+    ttm.setDescription(desc);
+    uacalcUI.getResultTextField().setText(desc);
+    final BackgroundTask<Boolean>  cyclicTermTask = new BackgroundTask<Boolean>(report) {
+      public Boolean compute() {
+        report.addStartLine(desc);
+        report.setDescription(desc);
+        boolean ans = Malcev.cyclicTermIdempotent(alg, arity, report);
+        return ans;
+      }
+      public void onCompletion(Boolean ans, Throwable exception, 
+                               boolean cancelled, boolean outOfMemory) {
+        System.out.println("exception: " + exception);
+        if (outOfMemory) {
+          report.addEndingLine("Out of memory!!!");
+          ttm.setDescription(desc + " (insufficient memory)");
+          updateResultTextField(this, ttm);
+          return;
+        }
+        if (!cancelled) {
+          report.addEndingLine("Done");
+          String extra = ans ? " It does have a cyclic term." : " It does not have a cyclic term.";
+          ttm.setDescription(desc + " " + extra);
+          updateResultTextField(this, ttm);
+          List<Term> fake = new ArrayList<Term>();
+          ttm.setTerms(fake);
+
+          if ( this.equals(getCurrentTask())) setResultTableColWidths();
+        }
+        else {
+          report.addEndingLine("Computation cancelled");
+          ttm.setDescription(desc + " (cancelled)");
+          updateResultTextField(this, ttm);
+          uacalcUI.repaint();
+        }
+      }
+    };
+    addTask(cyclicTermTask);
+    MainController.scrollToBottom(uacalcUI.getComputationsTable());
+    uacalcUI.getResultTable().setModel(ttm);
+    BackgroundExec.getBackgroundExec().execute(cyclicTermTask);
+  }
+
+  
+  public void setupGenCommutivityCheckTask() {
+    final GUIAlgebra gAlg = uacalcUI.getMainController().getCurrentAlgebra();
+    if (!isAlgOK(gAlg)) return;
+    final SmallAlgebra alg = gAlg.getAlgebra();
+    List<OperationSymbol> symList = alg.similarityType().getSortedOperationSymbols();
+    final List<OperationSymbol> symList2 = new ArrayList<>();
+    for (OperationSymbol sym : symList) {
+      if (sym.arity() > 1) symList2.add(sym);
+    }
+    final ProgressReport report = new ProgressReport(taskTableModel, uacalcUI.getLogTextArea());
+    final TermTableModel ttm = new TermTableModel();
+    termTableModels.add(ttm);
+    setResultTableColWidths();
+    final String desc = 
+        "Test which basic operations of " + gAlg + " are cyclic or totally symmetric";
+    ttm.setDescription(desc + ".");
+    uacalcUI.getResultTextField().setText(desc);
+    uacalcUI.getResultTextField().setText(desc);
+    final BackgroundTask<Map<OperationSymbol,Boolean>>  commutivityCheckTask 
+                = new BackgroundTask<Map<OperationSymbol,Boolean>>(report) {
+      public Map<OperationSymbol,Boolean> compute() {
+        report.addStartLine(desc);
+        report.setDescription(desc);
+        Map<OperationSymbol,Boolean> ans = new HashMap<>();
+        
+        for (OperationSymbol sym : symList2) {
+          
+          if (sym.arity() == 2) {
+            report.addStartLine("Testing if " + sym + " is commutative.");
+            Map<Variable,Integer> map = Equations.cyclicLaw(sym).findFailureMap(alg, report);
+            if (map == null) {
+              report.addEndingLine(sym + " is commutative.");
+              ans.put(sym, true);
+            }
+            else {
+              report.addEndingLine(sym + " fails commutivity under: " +  map);
+            }
+          }
+          else {
+            report.addStartLine("Testing if " + sym + " is cyclic.");
+            Map<Variable,Integer> map = Equations.cyclicLaw(sym).findFailureMap(alg, report);
+            if (map == null) {
+              report.addEndingLine(sym + " is cyclic.");
+              report.addStartLine("Testing if " + sym + " is totally symmetric.");
+              Map<Variable,Integer> map2 = Equations.firstSecondSymmetricLaw(sym).findFailureMap(alg, report);
+              if (map2 == null) {
+                report.addEndingLine(sym + " is totally symmetric.");
+                ans.put(sym, true);
+              }
+              else {
+                report.addEndingLine(sym + " fails total symmetry under: " +  map2);
+                ans.put(sym,false);
+              }
+            }
+            else {
+              report.addEndingLine(sym + " is not cyclic, witness: " +  map);
+            }
+          }
+        }
+ 
+        return ans;
+      }
+      public void onCompletion(Map<OperationSymbol,Boolean> ans, Throwable exception, 
+                               boolean cancelled, boolean outOfMemory) {
+        if (exception != null) {
+          System.out.println("execption: " + exception);
+          exception.printStackTrace();
+        }
+        if (outOfMemory) {
+          report.addEndingLine("Out of memory!!!");
+          ttm.setDescription(desc + " (insufficient memory)");
+          updateResultTextField(this, ttm);
+          return;
+        }
+        if (!cancelled) {
+          //List<OperationSymbol> assocOps = 
+          if (ans.isEmpty()) {
+            report.addEndingLine(gAlg.toString() + " has no cyclic basic operations.");
+            ttm.setDescription(desc + ": there are none.");
+            updateResultTextField(this, ttm);
+            uacalcUI.repaint();
+          }
+          else {
+            List<OperationSymbol> cyclicOps = new ArrayList<>();
+            List<OperationSymbol> totSymOps = new ArrayList<>();
+            for (OperationSymbol sym : ans.keySet()) {
+              if (ans.get(sym)) totSymOps.add(sym);
+              else cyclicOps.add(sym);
+            }
+            String totOpsString = totSymOps.isEmpty() ? "" : "Totally sym basic ops: " + totSymOps + ". ";
+            String cycOpsString = cyclicOps.isEmpty() ? "" : "Cyclic Ops " + cyclicOps + ".";
+            String ansStr = totOpsString + cycOpsString;
+            report.addEndingLine(ansStr);
+            ttm.setDescription(desc + ": " + ansStr);
+            updateResultTextField(this, ttm);
+            uacalcUI.repaint();
+            // if there is only one op and it is associate, report this is a semigroup 
+            // and maybe test if it is a semilattice.
+          }
+          if ( this.equals(getCurrentTask())) setResultTableColWidths();
+        }
+        else {
+          report.addEndingLine("Computation cancelled");
+          ttm.setDescription(desc + " (cancelled)");
+          updateResultTextField(this, ttm);
+          uacalcUI.repaint();
+        }
+      }
+      
+    };
+    addTask(commutivityCheckTask);
+    MainController.scrollToBottom(uacalcUI.getComputationsTable());
+    uacalcUI.getResultTable().setModel(ttm);
+    BackgroundExec.getBackgroundExec().execute(commutivityCheckTask);
+  }
+  
+  
+  public void setupAssociativeCheckTask() {
+    final GUIAlgebra gAlg = uacalcUI.getMainController().getCurrentAlgebra();
+    if (!isAlgOK(gAlg)) return;
+    final SmallAlgebra alg = gAlg.getAlgebra();
+    List<OperationSymbol> symList = alg.similarityType().getSortedOperationSymbols();
+    final List<Equation> eqs = new ArrayList<>();
+    for (OperationSymbol sym : symList) {
+      if (sym.arity() == 2) eqs.add(Equations.associativeLaw(sym));
+    }
+    final int numEqs = eqs.size();
+    final ProgressReport report = new ProgressReport(taskTableModel, uacalcUI.getLogTextArea());
+    final TermTableModel ttm = new TermTableModel();
+    termTableModels.add(ttm);
+    setResultTableColWidths();
+ 
+    final String desc = 
+        "Test which of the " + numEqs + " binary basic operations of " + gAlg + " are associative";
+    ttm.setDescription(desc + ".");
+    uacalcUI.getResultTextField().setText(desc);
+    final BackgroundTask<List<OperationSymbol>>  assocCheckTask 
+                = new BackgroundTask<List<OperationSymbol>>(report) {
+      public List<OperationSymbol> compute() {
+        report.addStartLine(desc);
+        report.setDescription(desc);
+        List<OperationSymbol> ans = new ArrayList<OperationSymbol>();
+        for (Equation equ : eqs) {
+          OperationSymbol sym = equ.leftSide().leadingOperationSymbol();
+          report.addStartLine("Testing if " + equ);
+          Map<Variable,Integer> map = equ.findFailureMap(gAlg.getAlgebra(), report);
+          if (map == null) {
+            report.addEndingLine(equ + " holds in " + gAlg.toString());
+            ans.add(sym);
+          }
+          else {
+            report.addEndingLine(equ + " fails in " + gAlg.toString() + " under " + map);
+          }
+        }
+        return ans;
+      }
+      public void onCompletion(List<OperationSymbol> ans, Throwable exception, 
+                               boolean cancelled, boolean outOfMemory) {
+        if (exception != null) {
+          System.out.println("execption: " + exception);
+          exception.printStackTrace();
+        }
+        if (outOfMemory) {
+          report.addEndingLine("Out of memory!!!");
+          ttm.setDescription(desc + " (insufficient memory)");
+          updateResultTextField(this, ttm);
+          return;
+        }
+        if (!cancelled) {
+          //List<OperationSymbol> assocOps = 
+          if (ans.isEmpty()) {
+            report.addEndingLine(gAlg.toString() + " has no associative, binary, basic operations.");
+            ttm.setDescription(desc + ": there are none.");
+            updateResultTextField(this, ttm);
+            uacalcUI.repaint();
+          }
+          else {
+            report.addEndingLine(" associative, binary, basic operations of " + gAlg.toString() + ": " + ans);
+            ttm.setDescription(desc + ": " + ans);
+            updateResultTextField(this, ttm);
+            uacalcUI.repaint();
+            // if there is only one op and it is associate, report this is a semigroup 
+            // and maybe test if it is a semilattice.
+          }
+          if ( this.equals(getCurrentTask())) setResultTableColWidths();
+        }
+        else {
+          report.addEndingLine("Computation cancelled");
+          ttm.setDescription(desc + " (cancelled)");
+          updateResultTextField(this, ttm);
+          uacalcUI.repaint();
+        }
+      }
+    };
+    addTask(assocCheckTask);
+    MainController.scrollToBottom(uacalcUI.getComputationsTable());
+    uacalcUI.getResultTable().setModel(ttm);
+    BackgroundExec.getBackgroundExec().execute(assocCheckTask);
+  }
+  
+  private Equation lastEquation = null;
+  private boolean warned = false;
+  
+  public void setupEquationCheckTask() {
+    if (!warned) {
+      warned = true;
+      int ok = JOptionPane.showConfirmDialog(uacalcUI.getFrame(), 
+          "<html>This is experimental and may crash the program.<br>" 
+              + "Choose cancel if you need to save your work before trying this.</html>", 
+              "Beta Version", 
+              JOptionPane.OK_CANCEL_OPTION);
+      if (ok == JOptionPane.CANCEL_OPTION) return;
+    }
+    final GUIAlgebra gAlg = uacalcUI.getMainController().getCurrentAlgebra();
+    if (!isAlgOK(gAlg)) return;
+    final SmallAlgebra alg = gAlg.getAlgebra();
+    List<OperationSymbol> opList = alg.similarityType().getSortedOperationSymbols();
+    if (opList == null || opList.size() == 0) return;  // give a warning !!!
+    StringBuffer buf = new StringBuffer();
+    final String sep = ", ";
+    for (int i = 0; i < opList.size() - 1; i++) {
+      buf.append(opList.get(i).toString(true));
+      buf.append(sep);
+    }
+    buf.append(opList.get(opList.size() - 1).toString(true));
+    String s = (String)JOptionPane.showInputDialog(
+        uacalcUI.getFrame(),
+        "<html>Enter term in symbols (arities in parentheses):<br>"
+            + buf.toString() + "<br>"
+            + "Use parentheses for constants like <font color=\"red\">c()</font>" 
+            + "</html>",
+        //"Complete the sentence:\n"
+        //+ "\"Green eggs and...\"",
+        "Enter the Left Side",
+        JOptionPane.PLAIN_MESSAGE,
+        null,//icon
+        null,
+        lastEquation == null ? null : lastEquation.leftSide().toString());
+    if (s == null) return; // the user cancelled
+    Term left = null;
+    try{
+      left = Terms.stringToTerm(s);
+    }
+    catch(IllegalArgumentException ex) {
+      System.out.println(ex.getMessage());
+      JOptionPane.showMessageDialog(uacalcUI.getFrame(),
+          ex.getMessage() + " Aborting.",
+          "Illegal Argument Exception",
+          JOptionPane.WARNING_MESSAGE);
+      return;
+    }
+    
+    String r = (String)JOptionPane.showInputDialog(
+        uacalcUI.getFrame(),
+        "<html>Left: " + left + "<br>"
+            + "Enter a term in symbols (arities in parentheses):<br>"
+            + buf.toString() + "<br>"
+            + "Use parentheses for constants like <font color=\"red\">c()</font>" 
+            + "</html>",
+        "Enter the Right Side",
+        JOptionPane.PLAIN_MESSAGE,
+        null,//icon
+        null,
+        lastEquation == null ? null : lastEquation.rightSide().toString());
+    if (r == null) return; // the user cancelled
+    Term right = null;
+    try {
+      right = Terms.stringToTerm(r);
+    }
+    catch(IllegalArgumentException ex) {
+      System.out.println(ex.getMessage());
+      JOptionPane.showMessageDialog(uacalcUI.getFrame(),
+          ex.getMessage() + " Aborting.",
+          "Illegal Argument Exception",
+          JOptionPane.WARNING_MESSAGE);
+      return;
+    }
+    final Equation eq = new Equation(left, right);
+    lastEquation = eq;
+    Set<OperationSymbol> eqOpSyms = eq.getOperationSymbols();
+    for (OperationSymbol opSym : eqOpSyms) {
+      if (!opList.contains(opSym)) {
+        JOptionPane.showMessageDialog(uacalcUI.getFrame(),
+            "<html>The symbol <font color=\"red\">" + 
+              opSym + "</font> is not in the similarity type of A.<br>Try again.</html>",
+            "Invalid Operation Symbol",
+            JOptionPane.WARNING_MESSAGE);
+        return;
+      }
+    }
+    List<Equation> eqs = new ArrayList<>(1);
+    eqs.add(eq);
+    eqTask(gAlg, eqs);
+  }
+  
+  private void eqTask(final GUIAlgebra gAlg, final List<Equation> eqs) {
+    final int numEqs = eqs.size();
+    if (numEqs == 0) return;  // shouldn't happen; this is a private method
+    final Equation eq = eqs.get(0);
+    final ProgressReport report = new ProgressReport(taskTableModel, uacalcUI.getLogTextArea());
+    final TermTableModel ttm = new TermTableModel();
+    termTableModels.add(ttm);
+    setResultTableColWidths();
+ 
+    final String desc = numEqs == 1 
+        ? "Test if " + " " + eq.leftSide() + " = " + eq.rightSide() + " in " +gAlg.toString()
+            : "Testing " + numEqs + " equations in " + gAlg + ".";
+    ttm.setDescription(desc);
+    uacalcUI.getResultTextField().setText(desc);
+    final BackgroundTask<Map<Variable,Integer>>  eqCheckTask = new BackgroundTask<Map<Variable,Integer>>(report) {
+      public Map<Variable,Integer> compute() {
+        //monitorPanel.getProgressMonitor().reset();
+        report.addStartLine(desc);
+        report.setDescription(desc);
+        Map<Variable,Integer> map = null;
+        if (numEqs == 1) {
+          map = eq.findFailureMap(gAlg.getAlgebra(), report);
+          return map;
+        }
+        for (Equation equ : eqs) {
+          report.addStartLine("Testing if " + equ);
+          map = eq.findFailureMap(gAlg.getAlgebra(), report);
+          if (map == null) report.addEndingLine(equ + " holds in " + gAlg.toString());
+          else report.addEndingLine(eq + " fails in " + gAlg.toString() + " under " + map);
+        }
+        return map;
+      }
+      public void onCompletion(Map<Variable,Integer> map, Throwable exception, 
+                               boolean cancelled, boolean outOfMemory) {
+        if (exception != null) {
+          System.out.println("execption: " + exception);
+          exception.printStackTrace();
+        }
+        if (outOfMemory) {
+          report.addEndingLine("Out of memory!!!");
+          ttm.setDescription(desc + " (insufficient memory)");
+          updateResultTextField(this, ttm);
+          return;
+        }
+        if (!cancelled) {
+          java.util.List<Term> terms = new ArrayList<Term>(2);
+          terms.add(eq.leftSide());
+          terms.add(eq.rightSide());
+          ttm.setTerms(terms);
+          if (map == null) {
+            report.addEndingLine(eq + " holds in " + gAlg.toString());
+            ttm.setDescription(desc + ": it does!");
+            updateResultTextField(this, ttm);
+            uacalcUI.repaint();
+          }
+          else {
+            report.addEndingLine(eq + " fails in " + gAlg.toString() + " under " + map);
+            ttm.setDescription(desc + ": it fails under " + map);
+            updateResultTextField(this, ttm);
+            uacalcUI.repaint();
+          }
+          if ( this.equals(getCurrentTask())) setResultTableColWidths();
+        }
+        else {
+          report.addEndingLine("Computation cancelled");
+          ttm.setDescription(desc + " (cancelled)");
+          updateResultTextField(this, ttm);
+          uacalcUI.repaint();
+        }
+      }
+    };
+    addTask(eqCheckTask);
+    MainController.scrollToBottom(uacalcUI.getComputationsTable());
+    uacalcUI.getResultTable().setModel(ttm);
+    BackgroundExec.getBackgroundExec().execute(eqCheckTask);
+  }
+  
+  
+  
   public void formPowerAlgebra() {
     final GUIAlgebra gAlg = uacalcUI.getMainController().getCurrentAlgebra();
     if (!isAlgOK(gAlg)) return;
@@ -2927,6 +3614,8 @@ public class ComputationsController {
       uacalcUI.getMainController().setUserWarning("power should be at least 2", false);
       return;
     }
+    // The MatrixPowerAlgebra class has some errors that I can't fix right now so going back to basic
+    //SmallAlgebra matPowAlg = new MatrixPowerAlgebra("", alg, pow);  // MatrixPowerAlgebra needs fixing
     SmallAlgebra matPowAlg = Algebras.matrixPower(alg, pow);
     matPowAlg.convertToDefaultValueOps();
     MainController mc = uacalcUI.getMainController();

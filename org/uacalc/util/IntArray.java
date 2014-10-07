@@ -10,7 +10,7 @@ import java.util.*;
  * specify the equals and hashCode methods.
  *
  * @author Ralph Freese
- * @version $Id$
+ * @version $Id: IntArray.java,v 1.9 2014/08/23 03:34:54 ralphfreese Exp $
  */
 public class IntArray implements Cloneable {
 
@@ -136,6 +136,15 @@ public class IntArray implements Cloneable {
       final int j = array[i];
       if (j < 0 || j >= size) return false;
       if (array[j] != j) return false;
+    }
+    return true;
+  }
+  
+  public boolean isConstant() {
+    if (size == 0) return true;
+    int a = array[0];
+    for (int i = 1; i < size; i++) {
+      if (array[i] != a) return false;
     }
     return true;
   }
