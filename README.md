@@ -1,7 +1,6 @@
 # CLI
 
-This is the main Git repository for UACalc.  If you don't use Git, you might prefer [this page](http://uacalc.github.io/UACalc/).
-
+This is the main Git repository for the UACalc command line interface.
 
 Introduction
 ============
