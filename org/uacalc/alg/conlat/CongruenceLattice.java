@@ -41,14 +41,10 @@ import java.util.logging.*;
     http://www.math.hawaii.edu/~ralph/papers.html</a>}.
  *
  * @author Ralph Freese
- * @version $Id$
+ * @version $Id: CongruenceLattice.java,v 1.70 2014/08/22 18:47:51 ralphfreese Exp $
  */ 
 public class CongruenceLattice implements Lattice {
 
-  static Logger logger = Logger.getLogger("org.uacalc.alg.CongruenceLattice");
-  static {
-    logger.setLevel(Level.FINER);
-  }
   
   public static ProgressReport monitor;// make it static and public for now
                                 // change it later. TODO
@@ -218,10 +214,23 @@ public class CongruenceLattice implements Lattice {
     return sub;
   }
   
+  /**
+   * A list of the principal congruences sorted by 
+   * rank (in the partition lattice).
+   * 
+   * @return
+   */
   public List<Partition> principals() {
     return principals(null);
   }
 
+  /**
+   * A list of the principal congruences sorted by
+   * rank (in the partition lattice).
+   * 
+   * @param report  the ProgressReport
+   * @return
+   */
   public List<Partition> principals(ProgressReport report) {
     if (!principalsMade) {
       makePrincipals(report);
@@ -263,6 +272,11 @@ public class CongruenceLattice implements Lattice {
   public SimilarityType similarityType() {
     return SimilarityType.LATTICE_SIMILARITY_TYPE;
   }
+  
+  /**
+   * Not allowed, of course.
+   */
+  public void updateSimilarityType() { }
 
   public Iterator<Partition> iterator() { return universe().iterator(); }
 
@@ -278,11 +292,17 @@ public class CongruenceLattice implements Lattice {
     return joinIrreducibles != null;
   }
 
+  /**
+   * A list of the join irreducible congruences sorted
+   * by rank (in the partition lattice).
+   */
   public List<Partition> joinIrreducibles() {
     return joinIrreducibles(null);
   }
+  
   /**
-   * A list of the join irreducibles; constructed if necessary.
+   * A list of the join irreducibles sorted by 
+   * rank (in the partition lattice); constructed if necessary.
    */
   public List<Partition> joinIrreducibles(ProgressReport report) {
     if (joinIrreducibles == null) makeJoinIrreducibles(report);
@@ -806,10 +826,11 @@ public class CongruenceLattice implements Lattice {
       
 
 
-// rsf: I'm putting back the stuff to calculate the lower covers of ji's
-//      It's almost free. And I need to have them without calculating
-//      the conlat.
-// since principalCongruences is sorted by rank, this will be too.
+  // rsf: I'm putting back the stuff to calculate the lower covers of ji's
+  //      It's almost free. And I need to have them without calculating
+  //      the conlat.
+  // since principalCongruences is sorted by rank (in the partition lattice), 
+  // this will be too.
   public void makeJoinIrreducibles(ProgressReport report) {
     if (report != null) report.addStartLine("finding join irreducible congruences of " + getAlgebra().getName());
     joinIrreducibles = new ArrayList<Partition>();
@@ -837,7 +858,7 @@ public class CongruenceLattice implements Lattice {
   }
   
   /**
-   * Sort by rank. The rank in size() - numberOfBlocks().
+   * Sort by rank (in the partition lattice). The rank in size() - numberOfBlocks().
    * 
    * @param lst
    */
@@ -1023,7 +1044,7 @@ public class CongruenceLattice implements Lattice {
    * This assumes a < b.
    */
   private Partition makeCg(int a, int b, final ProgressReport report) {
-    System.out.println("a and b: " + a + ", " + b);
+    //System.out.println("a and b: " + a + ", " + b);
     int[] part = new int[algSize];
     for (int i = 0; i < algSize; i++ ) {
       part[i] = -1;
@@ -1432,7 +1453,112 @@ public class CongruenceLattice implements Lattice {
     return principalCongruencesRep.get(part);
   }
 
-
+  /**
+   * find a coaton of the congruence lattice greater than
+   * or equal to theta. This assumes theta is strictly less than one.
+   * 
+   * @param theta
+   * @return
+   */
+  public Partition findCoatomAbove(Partition theta) {
+    int[] reps = theta.representatives();
+    for (int i = 0; i < reps.length; i++) {
+      for (int j = i+1; j < reps.length; j++) {
+        Partition join = theta.join(Cg(reps[i],reps[j]));
+        if (!join.equals(one())) return findCoatomAbove(join);
+      }
+    }
+    return theta;
+  }
+  
+  /**
+   * Find a chain where each element is the join of the previous
+   * one and a principal congruence. The chain contains the least but
+   * not the greatest congruence.
+   * 
+   * @return the chain
+   */
+  public List<Partition> findPrincipalChain() {
+    List<Partition> ans = new ArrayList<Partition>();
+    if (getAlgebra().cardinality() == 1) return ans;
+    Partition congr = zero();
+    while (true) {
+      ans.add(congr);
+      int[] reps = congr.representatives();
+      congr = congr.join(Cg(reps[0], reps[1]));
+      if (congr.equals(one())) break;
+    }
+    return ans;
+  }
+  
+  /**
+   * This finds a maximal (wrt set containment) chain.
+   * 
+   * @return
+   */
+  private List<Partition> findMaximalChain() {
+    /////////////////
+    // Not quite right
+    /////////////////
+    List<Partition> ans = new ArrayList<Partition>();
+    ans.add(zero());
+    if (getAlgebra().cardinality() == 1) return ans;
+    Partition currentTop = zero();
+    // this works because joinIrreducibles() returns
+    // a linear extension (in fact sorted by rank in Eq(A))
+    for (Partition congr : joinIrreducibles()) {
+      Partition join = currentTop.join(congr);
+      if (!join.equals(currentTop)) {
+        currentTop = join;
+        ans.add(join);
+      }
+    }  
+    return ans;
+  }
+  
+  /**
+   * Find <b>some</b> upper cover of congr.
+   * 
+   * @param congr
+   * @return
+   */
+  public Partition findUpperCover(Partition congr) {
+    if (congr.equals(one())) return null;
+    List<Partition> notBelow = new ArrayList<Partition>();
+    for (Partition par : joinIrreducibles()) {
+      if (!par.leq(congr)) notBelow.add(par);
+    }
+    List<Partition> minNotBelow = minimalElements(notBelow);
+    Partition ans = one();
+    for (Partition par : minNotBelow) {
+      Partition join = congr.join(par);
+      if (join.leq(ans)) ans = join; 
+    }
+    return ans;
+  }
+  
+  /**
+   * Find the min elements of a topologically sorted list.
+   * 
+   * @param parList  a topologically sorted list of partitions
+   * @return
+   */
+  public static List<Partition> minimalElements(List<Partition> parList) {
+    List<Partition> ans = new ArrayList<Partition>();
+    if (parList.isEmpty()) return ans;
+    for (Partition par : parList) {
+      boolean parOK = true;
+      for (Partition par0 : ans) {
+        if (par0.leq(par)) {
+          parOK = false;
+          break;
+        }
+      }
+      if (parOK) ans.add(par);
+    }
+    return ans;
+  }
+  
   /**
    * This finds a meet irreducible congruence which is maximal with
    * respect to being above <code>a</code> and not above <code>b</code>.
@@ -1649,6 +1775,27 @@ public class CongruenceLattice implements Lattice {
   public Partition[] getPermutabilityLevelWitnesses() {
     return permutabilityLevelWitnesses;
   }
+  /**
+   * Find the nonconstant, idempotent member of Pol1(A).
+   * 
+   * @return
+   */
+  public List<IntArray> idempotentPolynomials() {
+    final BigProductAlgebra prodAlg = new BigProductAlgebra(getAlgebra(), 1);
+    final int[] gen = new int[algSize];
+    final List<IntArray> gens = new ArrayList<>();
+    gens.add(new IntArray(gen));
+    for (int i = 0; i <algSize; i++) gen[i] = i;
+    SubProductAlgebra subpow = new SubProductAlgebra("", prodAlg, gens, false, true, null);
+    List<IntArray> univ = subpow.getUniverseList();
+    List<IntArray> ans = new ArrayList<>();
+    for (IntArray ia : univ) {
+      if (ia.isIdempotent() && !ia.isConstant()) ans.add(ia);
+    }
+    return ans;
+  }
+  
+  
   
   
   
@@ -1709,3 +1856,4 @@ public class CongruenceLattice implements Lattice {
 
   
 }
+

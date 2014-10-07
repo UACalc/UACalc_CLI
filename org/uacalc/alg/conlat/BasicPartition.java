@@ -30,7 +30,7 @@ import java.util.*;
  *
  *
  * @author Ralph Freese
- * @version $Id$
+ * @version $Id: BasicPartition.java,v 1.62 2013/09/23 14:42:46 ralphfreese Exp $
  */
 public class BasicPartition extends IntArray implements Partition, Comparable {
 

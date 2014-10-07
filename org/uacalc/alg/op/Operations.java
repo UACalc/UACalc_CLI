@@ -4,9 +4,12 @@ package org.uacalc.alg.op;
 
 import java.util.*;
 import java.util.logging.*;
+
 import javax.script.*;
+
 import org.uacalc.util.*;
 import org.uacalc.alg.conlat.BasicPartition;
+import org.uacalc.ui.tm.ProgressReport;
 
 /**
  * This is a factory class with static methods to make Operations.
@@ -207,6 +210,11 @@ public class Operations {
     return true;
   }
 
+  public static final int[] findDifference(Operation op0, Operation op1) {
+    return findDifference(op0, op1, null);
+  }
+  
+  
   /**
    * Find an argument where these operations differ. 
    * 
@@ -216,7 +224,7 @@ public class Operations {
    * @param op1
    * @return an int[] as a witness or null if they agree.
    */
-  public static final int[] findDifference(Operation op0, Operation op1) {
+  public static final int[] findDifference(Operation op0, Operation op1, ProgressReport report) {
     final int n = op0.getSetSize();
     if (n != op1.getSetSize()) 
       throw new IllegalArgumentException("Ops have different set sizes");
@@ -226,7 +234,18 @@ public class Operations {
     final int[] arr = new int[arity];
     ArrayIncrementor inc = 
       SequenceGenerator.sequenceIncrementor(arr, n - 1);
+    int size = 1;
+    for (int i = 0; i < arity; i++) size = size * n;
+    int k = 1;
+    if (report != null) report.addLine("Done when Size field gets to " + (size - 1) + " (or sooner if it fails)" );
     while (inc.increment()) {
+      if (report != null) {
+        report.setSize(k++);
+        if (Thread.currentThread().isInterrupted()) {
+          report.addEndingLine("cancelled ...");
+          return null;
+        }
+      }
       if (op0.intValueAt(arr) != op1.intValueAt(arr)) return arr;
     }
     return null;
@@ -508,6 +527,49 @@ public class Operations {
     return shift;
   }
   
+  /**
+   * This maps a pair of vectors (x,y) to (y_{k-1},x_0, ..., x_{k-2}); see
+   * McKenzie's finite forbidden lattices. 
+   * 
+   */
+  public static Operation makeBinaryLeftShift(final int vecSize, final int rootSize) {
+ 
+    final int algSize = power(rootSize, vecSize);
+    
+    Operation shift = new AbstractOperation("binrightshift", 2, algSize) {
+      
+      // TODO: complete the code below
+      private int[] blendedShiftArray(int[] arr0, int[] arr1) {
+        final int size = arr0.length;
+        int[] ans = new int[size];
+        for (int i = 1; i < size; i++) {
+          ans[i] = arr0[i-1];
+        }
+        ans[0] = arr1[size - 1];
+        return ans;
+      }
+      // do we need a getTable() ? 
+      public Object valueAt(List args) {
+        final int[] arg0 = ((IntArray)args.get(0)).getArray();
+        final int[] arg1 = ((IntArray)args.get(1)).getArray();
+        int[] shifted = blendedShiftArray(arg0, arg1);
+        return new IntArray(shifted);
+      }
+      
+      public int intValueAt(int[] args) {
+        final int arg0 = args[0];
+        final int arg1 = args[1];
+        final int[] arr0 = Horner.hornerInv(arg0, rootSize, vecSize);
+        final int[] arr1 = Horner.hornerInv(arg1, rootSize, vecSize);
+        return Horner.horner(blendedShiftArray(arr0, arr1), rootSize);
+      }
+    };
+    return shift;
+  }
+  
+  
+  
+  
   public static Operation makeMatrixDiagonalOp(final int vecSize, final int rootSize) {
     final int algSize = power(rootSize, vecSize);
     
@@ -736,6 +798,44 @@ public class Operations {
     return makeConstantIntOperation("c", algSize, elt);
   }
   
+  /**
+   * Make a unary operation interchanging a0 and a1.
+   * 
+   * @param algSize
+   * @param a0
+   * @param a1
+   * @return
+   */
+  public static Operation makeTransposition(final int algSize, final int a0, final int a1) {
+    OperationSymbol sym = new OperationSymbol("transpostion" + a0 + "-" + a1, 1);
+    
+    Operation op = new AbstractOperation(sym, algSize) {
+      public Object valueAt(List args) {
+        throw new UnsupportedOperationException();
+      }
+      public int intValueAt(final int[] args) {
+        if (args[0] == a0) return a1;
+        if (args[0] == a1) return a0;
+        return args[0];
+      }
+    };
+    return op;
+  }
+  
+  public static Operation makeFullCycle(final int algSize) {
+    OperationSymbol sym = new OperationSymbol("cycle" + algSize, 1);
+    
+    Operation op = new AbstractOperation(sym, algSize) {
+      public Object valueAt(List args) {
+        throw new UnsupportedOperationException();
+      }
+      public int intValueAt(final int[] args) {
+        return (args[0] + 1) % algSize;
+      }
+    };
+    return op;
+  }
+  
   public static Operation makeConstantIntOperation(final String symbolPrefix, final int algSize, final int elt) {
     OperationSymbol sym = new OperationSymbol(symbolPrefix + elt, 0);
     final int[] values = new int[] {elt};
@@ -756,6 +856,15 @@ public class Operations {
     };
     return op;
   }
+  
+  public static List<Operation> makeConstantIntOperations(final int algSize) {
+    List<Operation> ans = new ArrayList<>(algSize);
+    for (int i = 0; i < algSize; i++) {
+      ans.add(makeConstantIntOperation(algSize, i));
+    }
+    return ans;
+  }
+  
   
   public static void binaryOpToCSV(String desc, Operation binop, java.io.PrintStream out) {
     if (binop.arity() != 2) throw new IllegalArgumentException();

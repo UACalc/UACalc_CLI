@@ -22,7 +22,7 @@ import org.uacalc.io.AlgebraIO;
  *
  * @author Ralph Freese
  *
- * @version $Id$
+ * @version $Id: QuotientAlgebra.java,v 1.12 2013/07/18 08:40:38 ralphfreese Exp $
  */
 public class QuotientAlgebra extends GeneralAlgebra implements SmallAlgebra {
 

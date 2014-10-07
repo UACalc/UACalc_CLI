@@ -12,7 +12,7 @@ import org.uacalc.alg.conlat.*;
  *
  * @author Ralph Freese
  *
- * @version $Id$
+ * @version $Id: QuotientElement.java,v 1.2 2006/10/17 05:10:57 ralphfreese Exp $
  */
 public class QuotientElement {
 

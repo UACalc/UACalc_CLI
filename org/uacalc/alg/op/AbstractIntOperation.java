@@ -11,7 +11,7 @@ import java.util.List;
  * 
  * @author ralph
  *
- * $Id$
+ * $Id: AbstractIntOperation.java,v 1.1 2013/06/16 22:54:05 ralphfreese Exp $
  */
 public class AbstractIntOperation extends AbstractOperation {
 

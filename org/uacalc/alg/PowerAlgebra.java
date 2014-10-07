@@ -14,7 +14,7 @@ import org.uacalc.alg.sublat.SubalgebraLattice;
  *
  * @author Ralph Freese
  *
- * @version $Id$
+ * @version $Id: PowerAlgebra.java,v 1.6 2008/10/14 06:16:58 ralphfreese Exp $
  */
 public class PowerAlgebra extends ProductAlgebra implements SmallAlgebra {
 

@@ -17,12 +17,12 @@ import org.uacalc.alg.sublat.SubalgebraLattice;
  *
  * @author Ralph Freese
  *
- * @version $Id$
+ * @version $Id: SmallAlgebra.java,v 1.8 2014/08/12 09:06:41 ralphfreese Exp $
  */
 public interface SmallAlgebra extends Algebra {
 
   public static enum AlgebraType {
-    BASIC, BASIC_LATTICE, QUOTIENT, SUBALGEBRA, PRODUCT, POWER,
+    BASIC, BASIC_LATTICE, QUOTIENT, SUBALGEBRA, PRODUCT, POWER, MATRIX_POWER,
     REDUCT, SUBPRODUCT, FREE, POLIN_LIKE, UNARY_TERMS_MONOID
   }
   

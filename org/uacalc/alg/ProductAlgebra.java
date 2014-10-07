@@ -20,7 +20,7 @@ import org.uacalc.io.AlgebraIO;
  *
  * @author Ralph Freese
  *
- * @version $Id$
+ * @version $Id: ProductAlgebra.java,v 1.17 2013/07/18 08:40:38 ralphfreese Exp $
  */
 public class ProductAlgebra extends GeneralAlgebra implements SmallAlgebra {
 

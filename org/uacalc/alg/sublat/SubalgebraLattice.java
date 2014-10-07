@@ -17,7 +17,7 @@ import java.util.*;
  * the integers from 0 to n-1. 
  *
  * @author Ralph Freese
- * @version $Id$
+ * @version $Id: SubalgebraLattice.java,v 1.40 2014/06/04 04:14:54 ralphfreese Exp $
  */ 
 public class SubalgebraLattice implements Lattice {
 
@@ -181,6 +181,11 @@ public class SubalgebraLattice implements Lattice {
   public SimilarityType similarityType() {
     return SimilarityType.LATTICE_SIMILARITY_TYPE;
   }
+  
+  /**
+   * Not allowed.
+   */
+  public void updateSimilarityType() { }
 
   public Iterator<BasicSet> iterator() { return universe().iterator(); }
 

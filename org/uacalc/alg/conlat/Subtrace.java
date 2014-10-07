@@ -11,7 +11,7 @@ import java.util.*;
  * A class to hold a subtrace {a, b} and its TCT type.
  *
  * @author Ralph Freese
- * @version $Id$
+ * @version $Id: Subtrace.java,v 1.5 2009/08/11 23:56:38 ralphfreese Exp $
  */
 public class Subtrace {
 

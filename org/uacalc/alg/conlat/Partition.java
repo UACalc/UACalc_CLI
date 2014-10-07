@@ -11,7 +11,7 @@ import java.util.*;
  * system of distinct representatives, an SDR.
  *
  * @author Ralph Freese
- * @version $Id$
+ * @version $Id: Partition.java,v 1.9 2013/08/26 17:35:28 ralphfreese Exp $
  */
 public interface Partition extends BinaryRelation {
 

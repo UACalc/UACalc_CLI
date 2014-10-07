@@ -14,7 +14,7 @@ import java.util.logging.*;
  * @author Ralph Freese
  * @author Emil Kiss
  *
- * @version $Id$
+ * @version $Id: AbstractOperation.java,v 1.9 2012/05/10 04:38:39 ralphfreese Exp $
  */
 public abstract class AbstractOperation implements Operation {
 

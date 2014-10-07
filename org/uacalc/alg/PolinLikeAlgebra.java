@@ -22,7 +22,7 @@ import org.uacalc.ui.*;
  * The elements are ordered by the elements of B first followed by those
  * of A.
  *
- * @version $Id$
+ * @version $Id: PolinLikeAlgebra.java,v 1.12 2013/07/18 08:43:48 ralphfreese Exp $
  */
 public class PolinLikeAlgebra extends GeneralAlgebra implements SmallAlgebra {
 

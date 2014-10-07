@@ -50,7 +50,7 @@ import java.util.logging.*;
  *
  * @author Ralph Freese
  * @author Emil Kiss
- * @version $Id$
+ * @version $Id: TypeFinder.java,v 1.11 2014/09/22 18:54:29 ralphfreese Exp $
  */
 public final class TypeFinder {
 
@@ -145,6 +145,25 @@ public final class TypeFinder {
       typeSet.add(new Integer(findType(par)));
     }
     return typeSet;
+  }
+  
+  /**
+   * Test if <code>ia</code> is a beta subtrace.
+   * 
+   * @param ia
+   * @param beta
+   * @return
+   */
+  public boolean isSubtrace(IntArray ia, Partition beta) {
+    Partition betaStar = con.lowerStar(beta);
+    if (betaStar == null) throw new IllegalArgumentException(
+                         "beta = " + beta + " is not join irreducible");
+    alpha = (Partition)alpha.join(betaStar);
+    if (beta.leq(alpha)) throw new IllegalArgumentException(
+                         "beta is below its lower cover join alpha");
+    setAlpha(alpha);
+    Subtrace subtr = findSubtrace(ia);
+    return subtr.getSubtraceUniverse().contains(ia);
   }
 
   public Subtrace findSubtrace(Partition beta) { 

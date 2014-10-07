@@ -23,7 +23,7 @@ import org.uacalc.lat.*;
  *
  * @author Ralph Freese
  *
- * @version $Id$
+ * @version $Id: SubProductAlgebra.java,v 1.34 2013/07/28 21:04:11 ralphfreese Exp $
  */
 public class SubProductAlgebra extends GeneralAlgebra implements SmallAlgebra {
 

@@ -17,7 +17,7 @@ import org.uacalc.alg.sublat.*;
  *
  * @author Ralph Freese
  *
- * @version $Id$
+ * @version $Id: Subalgebra.java,v 1.11 2013/07/18 08:40:38 ralphfreese Exp $
  */
 public class Subalgebra extends GeneralAlgebra implements SmallAlgebra {
 

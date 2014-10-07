@@ -16,7 +16,7 @@ import org.uacalc.alg.sublat.*;
  *
  * @author Ralph Freese
  *
- * @version $Id$
+ * @version $Id: ReductAlgebra.java,v 1.7 2013/07/18 08:43:48 ralphfreese Exp $
  */
 public class ReductAlgebra extends GeneralAlgebra implements SmallAlgebra {
 
