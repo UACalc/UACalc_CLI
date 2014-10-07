@@ -19,7 +19,7 @@ import java.util.*;
  * Filter files by extension.
  *
  * @author Ralph Freese
- * @version $Id$
+ * @version $Id: ExtFileFilter.java,v 1.7 2011/05/31 03:40:23 ralphfreese Exp $
  */
 public class ExtFileFilter extends javax.swing.filechooser.FileFilter {
 

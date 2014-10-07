@@ -462,15 +462,17 @@ public class MainController {
     SmallAlgebra alg = getCurrentAlgebra().getAlgebra();
     if (alg == null) return false;
     for (Operation op : alg.operations()) {
-      if (!((OperationWithDefaultValue)op).isTotal()) {
-        uacalcUI.beep();
-        JOptionPane.showMessageDialog(uacalcUI.getFrame(),
-            "<html><center>Not all operations are total.<br>" 
-            + "Fill in the tables<br>"
-            + "or set a default value.</center></html>",
-            "Incomplete operation(s)",
-            JOptionPane.WARNING_MESSAGE);
-        return false;
+      if (op instanceof OperationWithDefaultValue) {
+        if (!((OperationWithDefaultValue)op).isTotal()) {
+          uacalcUI.beep();
+          JOptionPane.showMessageDialog(uacalcUI.getFrame(),
+              "<html><center>Not all operations are total.<br>" 
+                  + "Fill in the tables<br>"
+                  + "or set a default value.</center></html>",
+                  "Incomplete operation(s)",
+                  JOptionPane.WARNING_MESSAGE);
+          return false;
+        }
       }
     }
     alg.setName(uacalcUI.getAlgNameTextField().getText());
@@ -781,10 +783,13 @@ public class MainController {
         builtInAlgs, builtInAlgs[0]);
     if ((algName == null) || (algName.length() == 0)) return;
     System.out.println(algName + " choosen");
-    ClassLoader cl = this.getClass().getClassLoader();
+    //ClassLoader cl = this.getClass().getClassLoader();
+    ClassLoader cl = Thread.currentThread().getContextClassLoader();
 
+    
     String theFileName = "algebras/" + algName + ".ua";
     System.out.println("file: " + theFileName);
+    //InputStream is = ClassLoader.getSystemResourceAsStream(theFileName);
     InputStream is = cl.getResourceAsStream(theFileName);
     if (is == null) {
       System.out.println("null InputStream");
@@ -793,7 +798,6 @@ public class MainController {
     SmallAlgebra a = null;
     try {
       a = AlgebraIO.readAlgebraFromStream(is);
-      // TODO: add to list of algs
     }
     catch (BadAlgebraFileException e) {
       e.printStackTrace();
