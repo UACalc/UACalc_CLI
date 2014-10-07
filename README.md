@@ -1,4 +1,4 @@
-# CLI
+# UACalc
 
 This is the main Git repository for the UACalc command line interface.
 
