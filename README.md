@@ -154,8 +154,8 @@ Additional information
 
 --------------------------------------
 
-Notes/reminders for the administrators
-======================================
+Notes/reminders for administrators
+----------------------------------
 To create a new tar file from the git repository, use the following commands:
 
     cd ~/git    # assuming repository is in ~/git/UACalc_CLI
