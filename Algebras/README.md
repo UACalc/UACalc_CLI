@@ -1,0 +1,2 @@
+This directory contains just a sampling of algebra files distributed with the command line version of the UACalc.
+Many more are available in the [UACalc/AlgebraFiles](https://github.com/UACalc/AlgebraFiles) GitHub repository.
