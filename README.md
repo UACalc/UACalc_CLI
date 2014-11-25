@@ -1,4 +1,4 @@
-This is the main Git repository for UACalc_CLI, which provides a command line interface to the Universal Algebra Calculator.
+This is the main Git repository for UACalc_CLI, which provides a command line interface to the [Universal Algebra Calculator](http://uacalc.org).
 
 
 Introduction
@@ -7,7 +7,12 @@ Jython is an implementation of (the scripting language) Python in Java. It has t
 
 (The functional programming language Scala provides an alternative CLI to the UACalc, as described [here](http://universalalgebra.wordpress.com/documentation/scala/scala-repl-with-uacalc-objects/).)
 
-For more information, please visit [universalalgebra.org](http://universalalgebra.wordpress.com/documentation/uacalc/).
+Additional information:  
++ [the main UACalc website: http://uacalc.org](http://uacalc.org)  
++ [universalalgebra.org](http://universalalgebra.wordpress.com/documentation/uacalc/)  
++ [williamdemeo.github.io/uacalc](http://williamdemeo.github.io/uacalc/)
+
+
 
 Installation
 ============
