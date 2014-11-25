@@ -15,26 +15,26 @@ There are three ways to install and configure the command line version of the UA
 
     ~/UACalc/Algebras
     ~/UACalc/Examples
-    ~/UACalc/UACalc_CLI
+    ~/UACalc/CLI
 
-including a script ~/UACalc/UACalc_CLI/uacalc which starts the Jython interpreter with UACalc dependencies preconfigured.
-If you try any of the methods described below and you have problems, please [report the issue](https://github.com/UACalc/UACalc/issues).
+including a script ~/UACalc/CLI/uacalc which starts the Jython interpreter with UACalc dependencies preconfigured.
+If you try any of the methods described below and you have problems, please [report the issue](https://github.com/UACalc/UACalc_CLI/issues).
 
 Method 1: simple tar file download
 ----------------------------------
 Assuming you already have Java installed, or you want to install it yourself, this 
 method may work for you and is probably the simplest.
 
-1.  Download the UACalc.tar file from: http://uacalc.org/Jython/UACalc.tar
+1.  Download the UACalc_CLI.tar file from: http://uacalc.org/Jython/UACalc_CLI.tar
     and put it in your home directory.
 2.  Extract this tar archive into your home directory with a command like the following:
 
-        tar xvf UACalc.tar
+        tar xvf UACalc_CLI.tar
 
-    Or, if you already have a ~/UACalc directory, you can prevent tar from overwriting
+    **IMPORTANT NOTE:** Or, if you already have a ~/UACalc directory, you can prevent tar from overwriting
     files that are newer than those in the archive with (consider also the -w option):
 
-        tar --keep-newer-files xvf UACalc.tar
+        tar --keep-newer-files xvf UACalc_CLI.tar
 
 Method 2: automatic setup script for Ubuntu
 -------------------------------------------
@@ -45,7 +45,7 @@ works on other flavors of Linux, and eventually on Macs too.)
 
 Issue the following commands in a terminal window (at the shell prompt):
 
-1.  wget https://raw.github.com/UACalc/UACalc/master/setup.sh
+1.  wget https://raw.github.com/UACalc/UACalc_CLI/master/setup.sh
 
 2.  chmod a+x setup.sh
 
@@ -62,7 +62,7 @@ it into your ~/UACalc directory.
 
 2.  Clone the repository:
 
-        git clone git@github.com:UACalc/UACalc.git
+        git clone git@github.com:UACalc/UACalc_CLI.git
 
 3.  Copy what you need into the right places; e.g., some subset of the following commands,
     (depending on what you may already have, or what you'd like to update):
@@ -70,24 +70,24 @@ it into your ~/UACalc directory.
         mkdir -p ~/UACalc
         mkdir -p ~/UACalc/Algebras
         mkdir -p ~/UACalc/Examples
-        cp -b ~/git/UACalc/Algebras/*.ua ~/UACalc/Algebras/
-        cp -b ~/git/UACalc/Examples/*.py ~/UACalc/Examples/
-        rsync -aiu ~/git/UACalc/UACalc_CLI/ ~/UACalc/UACalc_CLI/
+        cp -b ~/git/UACalc_CLI/Algebras/*.ua ~/UACalc/Algebras/
+        cp -b ~/git/UACalc_CLI/Examples/*.py ~/UACalc/Examples/
+        rsync -aiu ~/git/UACalc_CLI/CLI/ ~/UACalc/CLI/
 
 
 Executing scripts
 =================
 Start the Jython interpreter by entering the following at the command line:
 
-    ~/UACalc/UACalc_CLI/uacalc
+    ~/UACalc/CLI/uacalc
 
 You may wish to put a link to this command in your ~/bin directory as follows:
 
-    ln -s ~/UACalc/UACalc_CLI/uacalc ~/bin/uacalc
+    ln -s ~/UACalc/CLI/uacalc ~/bin/uacalc
 
-The file ~/UACalc/UACalc_CLI/uacalc.py has definitions used in an interactive session, and the uacalc command invoked above is just shorthand for the following: 
+The file ~/UACalc/CLI/uacalc.py has definitions used in an interactive session, and the uacalc command invoked above is just shorthand for the following: 
 
-    java -jar ~/UACalc/UACalc_CLI/Jars/jython.jar -i ~/UACalc/UACalc/UACalc_CLI/uacalc.py
+    java -jar ~/UACalc/CLI/Jars/jython.jar -i ~/UACalc/CLI/uacalc.py
 
 Look at the file ~/UACalc/Examples/AlgebraConstructionExample.py.  This is an example script showing how to use python to construct an algebra.  If you have Jython installed separately, you can run the commands in this file by typing  
 
@@ -95,7 +95,7 @@ Look at the file ~/UACalc/Examples/AlgebraConstructionExample.py.  This is an ex
 
 in a terminal window.  This will create two algebra files in the Algebras directory (which can be loaded into UACalc).  If you don't have Jython installed separately, you can run the file with
 
-    java -jar ~/UACalc/UACalc_CLI/Jars/jython.jar -i ~/UACalc/UACalc/Examples/AlgebraConstructionExample.py
+    java -jar ~/UACalc/CLI/Jars/jython.jar -i ~/UACalc/Examples/AlgebraConstructionExample.py
 
 
 An interactive session
@@ -118,7 +118,7 @@ The sample interactive session below does the following:
 
 5.  Quit.
 
-        [ralph@mahiloa:~/UACalc/UACalc_CLI]$ uacalc
+        [ralph@mahiloa:~/UACalc/CLI]$ uacalc
         
         Starting Jython with UACalc dependencies.  Please be patient...
 
@@ -150,8 +150,8 @@ Notes/reminders for the administrators
 --------------------------------------
 To create a new tar file from the git repository, use the following commands:
 
-    cd ~/git    # assuming repository is in ~/git/UACalc
-    tar --exclude=.git --exclude=setup.sh --exclude=*~ -cvf UACalc.tar UACalc
+    cd ~/git    # assuming repository is in ~/git/UACalc_CLI
+    tar --exclude=.git --exclude=setup.sh --exclude=*~ -cvf UACalc_CLI.tar UACalc_CLI
 
 This excludes the git repository and the setup.sh file from the resulting UACalc.tar file.
 We might also consider the -u (update) option to only append files that are newer than 

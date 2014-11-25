@@ -11,7 +11,7 @@ echo
 echo 'Here is a summary of what this script does:'
 echo
 echo '    1.  Setup UACalc home directory.'
-echo "    2.  Install Git and clone the UACalc GitHub repository into ~/git/UACalc."
+echo "    2.  Install Git and clone the UACalc GitHub repository into ~/git/UACalc_CLI."
 echo "    3.  Copy examples and .ua files to ~/UACalc/Algebras and ~/UACalc/Examples."
 echo "    4.  Setup Java (openjdk-7-jdk), unless a suitable JRE is already present."
 echo "    5.  Create symbolic link to uacalc command at ~/bin/uacalc."
@@ -29,12 +29,13 @@ fi
 uacalc_path=$HOME'/UACalc'
 uacalc_algebras_path=$uacalc_path'/Algebras'
 uacalc_examples_path=$uacalc_path'/Examples'
-uacalc_cli_path=$uacalc_path'/UACalc_CLI'
+uacalc_cli_path=$uacalc_path'/CLI'
 git_path=$HOME'/git'
-uacalc_git_path=$git_path'/UACalc'
+git_repo_name='UACalc_CLI'
+uacalc_git_path=$git_path'/'$git_repo_name
 uacalc_git_algebras_path=$uacalc_git_path'/Algebras'
 uacalc_git_examples_path=$uacalc_git_path'/Examples'
-uacalc_git_cli_path=$uacalc_git_path'/UACalc_CLI'
+uacalc_git_cli_path=$uacalc_git_path'/CLI'
 
 echo
 echo
@@ -61,13 +62,13 @@ sudo apt-get install -y git-core
 if [ -d $uacalc_git_path/ ]; then
     echo '         Updating '$uacalc_git_path' to the latest version.'
     cd $uacalc_git_path
-    #git remote add origin git@github.com:UACalc/UACalc.git
+    #git remote add origin git@github.com:UACalc/UACalc_CLI.git
     git pull
 else
     # Otherwise, change into $HOME/git and clone the git repo.
     mkdir -p $git_path
     cd $git_path
-    git clone https://github.com/UACalc/UACalc.git
+    git clone 'https://github.com/UACalc/'$git_repo_name
 fi
 
 # 
