@@ -7,12 +7,6 @@ Jython is an implementation of (the scripting language) Python in Java. It has t
 
 (The functional programming language Scala provides an alternative CLI to the UACalc, as described [here](http://universalalgebra.wordpress.com/documentation/scala/scala-repl-with-uacalc-objects/).)
 
-Additional information:  
-+ [the main UACalc website: http://uacalc.org](http://uacalc.org)  
-+ [universalalgebra.org](http://universalalgebra.wordpress.com/documentation/uacalc/)  
-+ [williamdemeo.github.io/uacalc](http://williamdemeo.github.io/uacalc/)
-
-
 
 Installation
 ============
@@ -151,8 +145,17 @@ The sample interactive session below does the following:
         >>> quit()
 
 
-Notes/reminders for the administrators
+Additional information
+======================
++ [uacalc.org](http://uacalc.org) (the official UACalc website)
++ [universalalgebra.org](http://universalalgebra.wordpress.com/documentation/uacalc/)  
++ [williamdemeo.github.io/uacalc](http://williamdemeo.github.io/uacalc/)
+
+
 --------------------------------------
+
+Notes/reminders for the administrators
+======================================
 To create a new tar file from the git repository, use the following commands:
 
     cd ~/git    # assuming repository is in ~/git/UACalc_CLI
@@ -163,6 +166,7 @@ We might also consider the -u (update) option to only append files that are newe
 those already in the archive.
 
 ------------------------
+
 At some point in October 2014 this whole repository was inadvertantly overwritten with the uacalcsrc source code tree, so the following commands were issued to take us back to the previous state of the repository (from March 2014):
 
 1. Reset the index to the desired tree
