@@ -157,6 +157,26 @@ This excludes the git repository and the setup.sh file from the resulting UACalc
 We might also consider the -u (update) option to only append files that are newer than 
 those already in the archive.
 
+------------------------
+At some point in October 2014 this whole repository was inadvertantly overwritten with the uacalcsrc source code tree, so the following commands were issued to take us back to the previous state of the repository (from March 2014):
+
+# Reset the index to the desired tree
+git reset 56e05fced
+
+# Move the branch pointer back to the previous HEAD
+git reset --soft HEAD@{1}
+
+git commit -m "Revert to 56e05fced"
+
+# Update working copy to reflect the new commit
+git reset --hard
+
+# clean up any untracked files that lingered about.
+git clean -f -d 
+
+# see: http://stackoverflow.com/questions/1895059/revert-to-a-commit-by-a-sha-hash-in-git
+
+# This could have been done with one simple command like `git reset --hard 6fad311`, but the foregoing is clearer.
 
 
 
