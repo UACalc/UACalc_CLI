@@ -160,23 +160,27 @@ those already in the archive.
 ------------------------
 At some point in October 2014 this whole repository was inadvertantly overwritten with the uacalcsrc source code tree, so the following commands were issued to take us back to the previous state of the repository (from March 2014):
 
-# Reset the index to the desired tree
-git reset 56e05fced
+1. Reset the index to the desired tree
 
-# Move the branch pointer back to the previous HEAD
-git reset --soft HEAD@{1}
+        git reset 56e05fced
 
-git commit -m "Revert to 56e05fced"
+2. Move the branch pointer back to the previous HEAD
 
-# Update working copy to reflect the new commit
-git reset --hard
+        git reset --soft HEAD@{1}
 
-# clean up any untracked files that lingered about.
-git clean -f -d 
+        git commit -m "Revert to 56e05fced"
 
-# see: http://stackoverflow.com/questions/1895059/revert-to-a-commit-by-a-sha-hash-in-git
+3. Update working copy to reflect the new commit
 
-# This could have been done with one simple command like `git reset --hard 6fad311`, but the foregoing is clearer.
+        git reset --hard
+
+4. clean up any untracked files that lingered about.
+
+        git clean -f -d 
+
+see: http://stackoverflow.com/questions/1895059/revert-to-a-commit-by-a-sha-hash-in-git
+
+(This could have been done with one simple command like `git reset --hard 6fad311`, but the foregoing is clearer.)
 
 
 
