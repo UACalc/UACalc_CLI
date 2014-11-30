@@ -38,12 +38,13 @@ method may work for you and is probably the simplest.
         tar xvf UACalc_CLI.tar
 
     **Note:** If you already have a `UACalc_CLI` directory, you can prevent tar from
-    overwriting files that are newer than those in the archive with the
-    `--keep-newer-files` option, as follows:
+    overwriting files that are newer than those in the archive by using the
+    `--keep-newer-files` option.  That is, instead of the tar
+    command above, you could invoke the following:
 
         tar --keep-newer-files xvf UACalc_CLI.tar
 
-    Consider also the -w option.
+    (Alternatively, consider tar's -w option.)
 
 To start using UACalc at the command line, see section
 [Starting the UACalc CLI](#starting-the-uacalc-cli) below.
@@ -51,13 +52,15 @@ To start using UACalc at the command line, see section
 
 Method 2: automatic setup script for Ubuntu
 -------------------------------------------
-The setup.sh script in this repository will automatically set up everything on
-Ubuntu Linux. If you are not using Ubuntu, you can read the comments in the
-setup.sh file, and do the analogous steps for your platform.  (We are in the
-process of generalizing the setup.sh script so that it works on other operating
-systems.) 
+The [setup.sh](https://raw.githubusercontent.com/UACalc/UACalc_CLI/master/setup.sh)
+script in this repository will automatically set up everything on a
+Ubuntu Linux system. If you are not using Ubuntu, you can read the comments in the
+setup.sh file, and follow the analogous steps for your platform.
+(Work on generalizing the setup.sh script so that it runs on other operating
+systems is in progress.) 
 
-Issue the following commands in a terminal window (at the shell prompt):
+The setup.sh script can be run on a Ubuntu Linux system by issuing the following
+commands in a terminal window (at the shell prompt): 
 
     wget https://raw.githubusercontent.com/UACalc/UACalc_CLI/master/setup.sh
     chmod a+x setup.sh
@@ -76,7 +79,7 @@ This will give you everything you need to start using UACalc at the command
 line, as explained in [the next section](#starting-the-uacalc-cli).
 
 (For UACalc team members, the notes below describe how to clone in such a way
-that GitHub won't ask for login credentials everytime you push changes to the
+that GitHub won't ask for login credentials every time you push changes to the
 repository.)
 
 
@@ -191,7 +194,7 @@ the repository with the following command instead of the http version mentioned 
 
     git clone git@github.com:UACalc/UACalc_CLI.git
 
-That way GitHub won't ask for your credentials everytime you want to push
+That way GitHub won't ask for your credentials every time you want to push
 something to the repo.  Alternatively, if you have already used the http method
 of cloning the repo, you can switch to ssh using the following command:
 
@@ -201,7 +204,7 @@ See also: [GitHub doc on switching remote url](https://help.github.com/articles/
 
 ------------------------
 
-At some point in October 2014 this whole repository was inadvertantly overwritten with the uacalcsrc source code tree, so the following commands were issued to take us back to the previous state of the repository (from March 2014):
+At some point in October 2014 this whole repository was inadvertently overwritten with the uacalcsrc source code tree, so the following commands were issued to take us back to the previous state of the repository (from March 2014):
 
 1. Reset the index to the desired tree
 
