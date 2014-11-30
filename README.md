@@ -69,7 +69,7 @@ below and you have problems, please
   [For Experienced Jython Users](#for-experienced-jython-users).
   With that, you could start Jython and then do at least the following before
   trying some of the examples in the
-  [UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/Examples) directory.
+[UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/tree/master/Examples) directory.
 
         >>> import sys
         >>> sys.path.append("/home/username/uacalc.jar")
@@ -158,7 +158,7 @@ An interactive session
 ----------------------
 Here we describe a brief interactive Jython session that makes use of some
 UACalc methods.  For more examples, visit the 
-[UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/Examples) directory.
+[UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/tree/master/Examples) directory.
 
 You can call some "hidden" UACalc methods (that don't yet appear in the gui
 menu). For example, if you go to the javadoc link, click on CongruenceLattice on
@@ -225,7 +225,7 @@ can email [Ralph Freese](mailto:ralph@math.hawaii.edu) or
 
 Additional information
 ----------------------
-+ More examples are described in the [UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/Examples) directory.
++ More examples are described in the [UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/tree/master/Examples) directory.
 + To see what UACalc packages you can import on the Jython command line,
 and to learn about their methods, consult the [UACalc javadocs](http://uacalc.org/doc/).
 + The official UACalc website is [uacalc.org](http://uacalc.org).
@@ -243,9 +243,9 @@ Jython and then invoke the following two commands:
         >>> sys.path.append("/home/username/uacalc.jar")
 
 Then you should already be able to try some of the examples described in the
-[UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/Examples) directory.
+[UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/tree/master/Examples) directory.
 
-See the file [UACalc_CLI/CLI/uacalc.py](https://github.com/UACalc/UACalc_CLI/CLI/uacalc.py) for other configuration options.
+See the file [UACalc_CLI/CLI/uacalc.py](https://raw.githubusercontent.com/UACalc/UACalc_CLI/master/CLI/uacalc.py) for other configuration options.
 
 -----------------------------------------------------
 
