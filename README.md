@@ -153,26 +153,16 @@ line of a terminal window.
 You may wish to add the UACalc_CLI/CLI directory to your search $PATH,
 so that in the future you can simply type `uacalc` on the command line.
 
-Constructing an Algebra
------------------------
-Python code demonstrating the construction of a (universal) algebra is 
-in the file `UACalc_CLI/Examples/AlgebraConstructionExample.py`.
-
-If you have Jython installed separately, you can run the commands in a .py file
-by entering, for example,
-
-    jython AlgebraConstructionExample.py 
-
-in a terminal window.  This will create two algebra files in the Algebras
-directory (which can be loaded into UACalc).  If you don't have Jython installed
-separately, you can run the file with 
-
-    java -jar UACalc_CLI/CLI/Jars/jython.jar -i UACalc_CLI/Examples/AlgebraConstructionExample.py
-
 
 An interactive session
 ----------------------
-You can call some hidden methods: for example, if you go to the javadoc link, click on CongruenceLattice on the left, you will find a method 
+Here we describe a brief interactive Jython session that makes use of some
+UACalc methods.  For more examples, visit the 
+[UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/Examples) directory.
+
+You can call some "hidden" UACalc methods (that don't yet appear in the gui
+menu). For example, if you go to the javadoc link, click on CongruenceLattice on
+the left, you will find a method
 
     commutator(BinaryRelation S, BinaryRelation T). 
 
@@ -235,9 +225,10 @@ can email [Ralph Freese](mailto:ralph@math.hawaii.edu) or
 
 Additional information
 ----------------------
-+ [uacalc.org](http://uacalc.org) (the official UACalc website)
-+ [universalalgebra.org](http://universalalgebra.wordpress.com/documentation/uacalc/)  
-+ [williamdemeo.github.io/uacalc](http://williamdemeo.github.io/uacalc/)
++ More examples are described in the [UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/Examples) directory.
++ To see what UACalc packages you can import on the Jython command line,
+and to learn about their methods, consult the [UACalc javadocs](http://uacalc.org/doc/).
++ The official UACalc website is [uacalc.org](http://uacalc.org).
 
 --------------------------------
 

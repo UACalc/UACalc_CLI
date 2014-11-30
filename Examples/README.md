@@ -77,7 +77,21 @@ packages**, for example,
         1
 
 ## Constructing algebras
-(coming soon)
+Python code demonstrating the construction of a (universal) algebra is 
+in the file `UACalc_CLI/Examples/AlgebraConstructionExample.py`.
+
+If you have Jython installed separately, you can run the commands in a .py file
+by entering, for example,
+
+    jython AlgebraConstructionExample.py 
+
+in a terminal window.  This will create two algebra files in the Algebras
+directory (which can be loaded into UACalc).  If you don't have Jython installed
+separately, you can run the file with 
+
+    java -jar UACalc_CLI/CLI/Jars/jython.jar -i UACalc_CLI/Examples/AlgebraConstructionExample.py
+
+
 
 ## The commutator
 You can call some of the UACalc's "hidden methods" (that don't appear in the gui
