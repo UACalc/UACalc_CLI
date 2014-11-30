@@ -16,21 +16,21 @@ If you already know what the UACalc is and why you would want to use it from the
 command line, you can skip to the next section on [Installation](#installation)
 of the UACalc command line interface (CLI).
 
-The Universal Algebra Calculator (<a title="UACalc" href="http://uacalc.org"
-target="_blank">UACalc</a>) is powerful software for studying and experimenting
-with general (universal) algebras.  It is written entirely in Java and it has a
-very nice, user friendly graphical user interface (gui).  The UACalc lacks a
+The Universal Algebra Calculator ([UACalc](http://uacalc.org))
+is powerful software for studying and experimenting
+with general (universal) algebras. It is written entirely in Java and it has a
+very nice, user friendly graphical user interface (gui). The UACalc lacks a
 command line interface (cli), and for some tasks we might prefer a cli over a
 gui. 
 
 A common scenario is the following: we wish to construct a large collection of
 algebras and, iterating over this collection, use some functionality provided by
-UACalc to search for a counterexample to some conjecture.  One solution would be
+UACalc to search for a counterexample to some conjecture. One solution would be
 to write a Java program to do this, since we can access the opensource Java
 classes and methods provided by UACalc.  Although Java is a nice language that
 makes programming relatively painless, it is still time consuming to write a
 decent, correct Java program.  For fast prototyping and experimentation, it
-would be nice to have a scripting language interface to UACalc.  Jython provides
+would be nice to have a scripting language interface to UACalc. Jython provides
 this. 
 
 Jython is an implementation of (the scripting language) Python in Java. It has
@@ -42,7 +42,7 @@ The [Scala programming language](http://www.scala-lang.org/) provides an
 alternative CLI to the UACalc, as briefly described
 [here](http://universalalgebra.wordpress.com/documentation/scala/scala-repl-with-uacalc-objects/).
 More support for Scala programming with UACalc packages is currently under
-development. (For more info, please email [williamdemeo](https://github.com/williamdemeo) at gmail.)
+development. (For more info, [contact williamdemeo](mailto:williamdemeo@gmail.com).)
 
 The next section describes a few ways to install and configure a command line
 version of UACalc.  Later sections show how to import UACalc classes from the Jython
@@ -74,7 +74,8 @@ below and you have problems, please
         >>> import sys
         >>> sys.path.append("/home/username/uacalc.jar")
 
-  (See the file UACalc_CLI/CLI/uacalc.py for other configuration options.)
+  (See the file
+  [UACalc_CLI/CLI/uacalc.py](https://raw.githubusercontent.com/UACalc/UACalc_CLI/master/CLI/uacalc.py) for other configuration options.)
 
 
 Method 1: simple tar file download
