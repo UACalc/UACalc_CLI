@@ -1,3 +1,6 @@
+UACalc_CLI
+==========
+
 This is the main Git repository for UACalc_CLI, which provides a command line
 interface to the [Universal Algebra Calculator](http://uacalc.org).
 You are now reading the contents of the README.md file, which explains how to
@@ -7,7 +10,7 @@ command line.
 
 
 Introduction and Motivation
-===========================
+---------------------------
 This section briefly describes some background and motivation for this GitHub repository.
 If you already know what the UACalc is and why you would want to use it from the
 command line, you can skip to the next section on [Installation](#installation)
@@ -48,7 +51,7 @@ resulting UACalc objects.
 
 
 Installation
-============
+------------
 There are three ways to install and configure the command line version of the UACalc.  They should all leave you with the following directories:
 
     UACalc_CLI/Algebras
@@ -84,8 +87,7 @@ To start using UACalc at the command line, see section
 [Starting the UACalc CLI](#starting-the-uacalc-cli) below.
 
 
-Method 2: automatic setup script for Ubuntu
--------------------------------------------
+### Method 2: automatic setup script for Ubuntu
 The [setup.sh](https://raw.githubusercontent.com/UACalc/UACalc_CLI/master/setup.sh)
 script in this repository will automatically set up everything on a
 Ubuntu Linux system. If you are not using Ubuntu, you can read the comments in the
@@ -103,8 +105,7 @@ commands in a terminal window (at the shell prompt):
 To start using UACalc at the command line, see section
 [Starting the UACalc CLI](#starting-the-uacalc-cli) below.
 
-Method 3: clone this git repository
------------------------------------
+### Method 3: clone this git repository
 If you have git installed, you can clone this repository with the command
 
     git clone https://github.com/UACalc/UACalc_CLI.git
@@ -118,7 +119,7 @@ repository.)
 
 
 Starting the UACalc CLI
-=======================
+-----------------------
 **IMPORTANT** After using one of the methods described above for obtaining the
 software, you must open the file called `UACalc_CLI/CLI/uacalc.py` in an editor
 and change the line
@@ -139,7 +140,7 @@ You may wish to add the UACalc_CLI/CLI directory to your search $PATH,
 so that in the future you can simply type `uacalc` on the command line.
 
 Constructing an Algebra
-=======================
+-----------------------
 Python code demonstrating the construction of a (universal) algebra is 
 in the file `UACalc_CLI/Examples/AlgebraConstructionExample.py`.
 
@@ -156,7 +157,7 @@ separately, you can run the file with
 
 
 An interactive session
-======================
+----------------------
 You can call some hidden methods: for example, if you go to the javadoc link, click on CongruenceLattice on the left, you will find a method 
 
     commutator(BinaryRelation S, BinaryRelation T). 
@@ -204,7 +205,7 @@ The sample interactive session below does the following:
 
 
 Additional information
-======================
+----------------------
 + [uacalc.org](http://uacalc.org) (the official UACalc website)
 + [universalalgebra.org](http://universalalgebra.wordpress.com/documentation/uacalc/)  
 + [williamdemeo.github.io/uacalc](http://williamdemeo.github.io/uacalc/)
