@@ -7,11 +7,19 @@ Created on Jun 23, 2013
 
 import sys
 from os.path import expanduser
-home = expanduser("~")
-jars = home+"/UACalc/UACalc_CLI/Jars"
-sys.path.append(jars+"/uacalc.jar")
-sys.path.append(jars+"/LatDraw.jar")
-sys.path.append(home+"/UACalc/Examples")
+
+
+''' ATTENTION!!! 
+    UACALC_CLI_ROOT must be set equal to the fully qualified name
+    of the UACalc_CLI directory, that is, the directory containing:
+    Algebras, Examples, and CLI subdirectories.
+'''
+UACALC_CLI_ROOT = expanduser("~/git/UACalc_CLI")
+
+
+sys.path.append(UACALC_CLI_ROOT+"/CLI/Jars/uacalc.jar")
+sys.path.append(UACALC_CLI_ROOT+"/CLI/Jars/LatDraw.jar")
+sys.path.append(UACALC_CLI_ROOT+"/Examples")
 
 import rlcompleter
 import readline

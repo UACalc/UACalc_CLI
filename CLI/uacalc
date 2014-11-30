@@ -2,7 +2,6 @@
 echo
 echo 'Starting Jython with UACalc dependencies.  Please be patient...'
 echo
-UACJ=$HOME/UACalc/UACalc_CLI
 
-exec java -jar $UACJ'/Jars/jython.jar' -i $UACJ'/uacalc.py'
+exec java -jar Jars/jython.jar -i uacalc.py
 

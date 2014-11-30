@@ -12,89 +12,98 @@ Installation
 ============
 There are three ways to install and configure the command line version of the UACalc.  They should all leave you with the following directories:
 
-    ~/UACalc/Algebras
-    ~/UACalc/Examples
-    ~/UACalc/CLI
+    UACalc_CLI/Algebras
+    UACalc_CLI/Examples
+    UACalc_CLI/CLI
 
-including a script ~/UACalc/CLI/uacalc which starts the Jython interpreter with UACalc dependencies preconfigured.
-If you try any of the methods described below and you have problems, please [report the issue](https://github.com/UACalc/UACalc_CLI/issues).
+including a script UACalc_CLI/CLI/uacalc which starts the Jython interpreter
+with UACalc dependencies preconfigured. If you try any of the methods described
+below and you have problems, please
+[report the issue](https://github.com/UACalc/UACalc_CLI/issues). 
 
 Method 1: simple tar file download
 ----------------------------------
 Assuming you already have Java installed, or you want to install it yourself, this 
 method may work for you and is probably the simplest.
 
-1.  Download the UACalc_CLI.tar file from: http://uacalc.org/Jython/UACalc_CLI.tar
-    and put it in your home directory.
-2.  Extract this tar archive into your home directory with a command like the following:
+1.  Download the file
+
+        http://uacalc.org/Jython/UACalc_CLI.tar
+
+2.  Extract this tar archive with a command like the following:
 
         tar xvf UACalc_CLI.tar
 
-    **IMPORTANT NOTE:** Or, if you already have a ~/UACalc directory, you can prevent tar from overwriting
-    files that are newer than those in the archive with (consider also the -w option):
+    **Note:** If you already have a `UACalc_CLI` directory, you can prevent tar from
+    overwriting files that are newer than those in the archive with the
+    `--keep-newer-files` option, as follows:
 
         tar --keep-newer-files xvf UACalc_CLI.tar
 
+    Consider also the -w option.
+
+To start using UACalc at the command line, see section
+[Starting the UACalc CLI](#starting-the-uacalc-cli) below.
+
+
 Method 2: automatic setup script for Ubuntu
 -------------------------------------------
-The setup.sh script in this repository will automatically set up everything on Ubuntu Linux.  
-If you are not using Ubuntu, you can read the comments in the setup.sh file, and do the analogous 
-steps for your platform.  (We are in the process of generalizing the setup.sh script so that it 
-works on other flavors of Linux, and eventually on Macs too.)
+The setup.sh script in this repository will automatically set up everything on
+Ubuntu Linux. If you are not using Ubuntu, you can read the comments in the
+setup.sh file, and do the analogous steps for your platform.  (We are in the
+process of generalizing the setup.sh script so that it works on other operating
+systems.) 
 
 Issue the following commands in a terminal window (at the shell prompt):
 
-1.  wget https://raw.github.com/UACalc/UACalc_CLI/master/setup.sh
+    wget https://raw.githubusercontent.com/UACalc/UACalc_CLI/master/setup.sh
+    chmod a+x setup.sh
+    ./setup.sh
 
-2.  chmod a+x setup.sh
-
-3.  ./setup.sh
+To start using UACalc at the command line, see section
+[Starting the UACalc CLI](#starting-the-uacalc-cli) below.
 
 Method 3: clone this git repository
 -----------------------------------
-If you have git installed, you can clone this repository, and then copy what you need from 
-it into your ~/UACalc directory.
-
-1.  Change to the directory where you want to keep the repository; e.g.,
+If you have git installed, you can clone this repository with, e.g., 
 
         cd ~/git
+        git clone https://github.com/UACalc/UACalc_CLI.git
 
-2.  Clone the repository:
-
-        git clone git@github.com:UACalc/UACalc_CLI.git
-
-3.  Copy what you need into the right places; e.g., some subset of the following commands,
-    (depending on what you may already have, or what you'd like to update):
-
-        mkdir -p ~/UACalc
-        mkdir -p ~/UACalc/Algebras
-        mkdir -p ~/UACalc/Examples
-        cp -b ~/git/UACalc_CLI/Algebras/*.ua ~/UACalc/Algebras/
-        cp -b ~/git/UACalc_CLI/Examples/*.py ~/UACalc/Examples/
-        rsync -aiu ~/git/UACalc_CLI/CLI/ ~/UACalc/CLI/
+This will give you everything you need to start using UACalc at the command
+line, as explained in the next section.
 
 
-Executing scripts
-=================
-Start the Jython interpreter by entering the following at the command line:
+Starting the UACalc CLI
+=======================
+**IMPORTANT** After using one of the methods described above for obtaining the
+software, you must open the file called `UACalc_CLI/CLI/uacalc.py` in an editor
+and change the value of the variable `UACALC_CLI_ROOT` to the fully qualified
+name of your UACalc_CLI directory; that is, set `UACALC_CLI_ROOT` equal to the
+directory that contains the Algebras, Examples, and CLI subdirectories.
 
-    ~/UACalc/CLI/uacalc
+Start the Jython interpreter by running the script `uacalc`.  For example, from
+within the UACalc_CLI/CLI directory, you could enter `./uacalc` on the command
+line of a terminal window. 
 
-You may wish to put a link to this command in your ~/bin directory as follows:
+You may wish to add the UACalc_CLI/CLI directory to your search $PATH,
+so that in the future you can simply type `uacalc` on the command line.
 
-    ln -s ~/UACalc/CLI/uacalc ~/bin/uacalc
+Constructing an Algebra
+=======================
+Python code demonstrating the construction of a (universal) algebra is 
+in the file `UACalc_CLI/Examples/AlgebraConstructionExample.py`.
 
-The file ~/UACalc/CLI/uacalc.py has definitions used in an interactive session, and the uacalc command invoked above is just shorthand for the following: 
-
-    java -jar ~/UACalc/CLI/Jars/jython.jar -i ~/UACalc/CLI/uacalc.py
-
-Look at the file ~/UACalc/Examples/AlgebraConstructionExample.py.  This is an example script showing how to use python to construct an algebra.  If you have Jython installed separately, you can run the commands in this file by typing  
+If you have Jython installed separately, you can run the commands in a .py file
+by entering, for example,
 
     jython AlgebraConstructionExample.py 
 
-in a terminal window.  This will create two algebra files in the Algebras directory (which can be loaded into UACalc).  If you don't have Jython installed separately, you can run the file with
+in a terminal window.  This will create two algebra files in the Algebras
+directory (which can be loaded into UACalc).  If you don't have Jython installed
+separately, you can run the file with 
 
-    java -jar ~/UACalc/CLI/Jars/jython.jar -i ~/UACalc/Examples/AlgebraConstructionExample.py
+    java -jar UACalc_CLI/CLI/Jars/jython.jar -i UACalc_CLI/Examples/AlgebraConstructionExample.py
 
 
 An interactive session
@@ -117,7 +126,7 @@ The sample interactive session below does the following:
 
 5.  Quit.
 
-        [ralph@mahiloa:~/UACalc/CLI]$ uacalc
+        [ralph@mahiloa:~/git/UACalc_CLI/CLI]$ uacalc
         
         Starting Jython with UACalc dependencies.  Please be patient...
 
@@ -126,7 +135,7 @@ The sample interactive session below does the following:
             to exit type quit()
             (more help coming)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        >>> f3 = AlgebraIO.readAlgebraFile("/home/ralph/UACalc/Algebras/f3.ua")
+        >>> f3 = AlgebraIO.readAlgebraFile("/home/ralph/git/UACalc_CLI/Algebras/f3.ua")
         >>> f3.cardinality()
         3
         >>> conlat = f3.con().getUniverseList()
