@@ -64,19 +64,9 @@ below and you have problems, please
 [report the issue](https://github.com/UACalc/UACalc_CLI/issues). 
 
 **NOTE:** If you are already familiar with Jython, it's not absolutely necessary
-  to follow the full setup procedure described below. All you really need is the
+  to follow the full setup procedure described here. All you really need is the
   [uacalc.jar](http://uacalc.org/uacalc.jar) file.  See the section below
   [For Experienced Jython Users](#for-experienced-jython-users).
-  With that, you could start Jython and then do at least the following before
-  trying some of the examples in the
-[UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/tree/master/Examples) directory.
-
-        >>> import sys
-        >>> sys.path.append("/home/username/uacalc.jar")
-
-  (See the file
-  [UACalc_CLI/CLI/uacalc.py](https://raw.githubusercontent.com/UACalc/UACalc_CLI/master/CLI/uacalc.py) for other configuration options.)
-
 
 Method 1: simple tar file download
 ----------------------------------
