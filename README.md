@@ -9,7 +9,7 @@ The [Scala programming language](http://www.scala-lang.org/) provides an
 alternative CLI to the UACalc, as briefly described
 [here](http://universalalgebra.wordpress.com/documentation/scala/scala-repl-with-uacalc-objects/). More support for Scala programming with UACalc packages
 is currently under active development. (For more info, please email
-[@williamdemeo](https://github.com/williamdemeo) at gmail.)
+[williamdemeo](https://github.com/williamdemeo) at gmail.)
 
 
 
@@ -33,7 +33,7 @@ method may work for you and is probably the simplest.
 
 1.  Download the file
 
-        http://uacalc.org/Jython/UACalc_CLI.tar
+        [http://uacalc.org/Jython/UACalc_CLI.tar](http://uacalc.org/Jython/UACalc_CLI.tar)
 
 2.  Extract this tar archive with a command like the following:
 
@@ -70,13 +70,12 @@ To start using UACalc at the command line, see section
 
 Method 3: clone this git repository
 -----------------------------------
-If you have git installed, you can clone this repository with, e.g., 
+If you have git installed, you can clone this repository with the command
 
-        cd ~/git
-        git clone https://github.com/UACalc/UACalc_CLI.git
+    git clone https://github.com/UACalc/UACalc_CLI.git
 
 This will give you everything you need to start using UACalc at the command
-line, as explained in the next section.
+line, as explained in [the next section](#starting-the-uacalc-cli).
 
 (For UACalc team members, the notes below describe how to clone in such a way
 that GitHub won't ask for login credentials everytime you push changes to the
@@ -87,9 +86,15 @@ Starting the UACalc CLI
 =======================
 **IMPORTANT** After using one of the methods described above for obtaining the
 software, you must open the file called `UACalc_CLI/CLI/uacalc.py` in an editor
-and change the value of the variable `UACALC_CLI_ROOT` to the fully qualified
-name of your UACalc_CLI directory; that is, set `UACALC_CLI_ROOT` equal to the
-directory that contains the Algebras, Examples, and CLI subdirectories.
+and change the line
+
+    UACALC_CLI_ROOT = expanduser("~/git/UACalc_CLI")
+
+so that the string "~/git/UACalc\_CLI" is the fully qualified
+name of your UACalc_CLI directory.
+
+That is, `UACALC_CLI_ROOT` must be equal to the directory on your system that
+contains the Algebras, Examples, and CLI subdirectories.
 
 Start the Jython interpreter by running the script `uacalc`.  For example, from
 within the UACalc_CLI/CLI directory, you could enter `./uacalc` on the command
