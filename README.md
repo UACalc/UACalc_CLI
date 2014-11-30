@@ -1,16 +1,50 @@
-This is the main Git repository for UACalc_CLI, which provides a command line interface to the [Universal Algebra Calculator](http://uacalc.org).
+This is the main Git repository for UACalc_CLI, which provides a command line
+interface to the [Universal Algebra Calculator](http://uacalc.org).
+You are now reading the contents of the README.md file, which explains how to
+set up the command line interface to the universal Algebra Calculator, and then
+gives a few examples demonstrating how to import and use UACalc classes on the
+command line. 
 
 
-Introduction
-============
-Jython is an implementation of (the scripting language) Python in Java. It has the advantage (for us) that it can read Java libraries the the uacalc.jar library.  Therefore, the Jython interpreter can be used as a command line interface (CLI) to the UACalc.  
+Introduction and Motivation
+===========================
+This section briefly describes some background and motivation for this GitHub repository.
+If you already know what the UACalc is and why you would want to use it from the
+command line, you can skip to the next section on [Installation](#installation)
+of the UACalc command line interface (CLI).
+
+The Universal Algebra Calculator (<a title="UACalc" href="http://uacalc.org"
+target="_blank">UACalc</a>) is powerful software for studying and experimenting
+with general (universal) algebras.  It is written entirely in Java and it has a
+very nice, user friendly graphical user interface (gui).  The UACalc lacks a
+command line interface (cli), and for some tasks we might prefer a cli over a
+gui. 
+
+A common scenario is the following: we wish to construct a large collection of
+algebras and, iterating over this collection, use some functionality provided by
+UACalc to search for a counterexample to some conjecture.  One solution would be
+to write a Java program to do this, since we can access the opensource Java
+classes and methods provided by UACalc.  Although Java is a nice language that
+makes programming relatively painless, it is still time consuming to write a
+decent, correct Java program.  For fast prototyping and experimentation, it
+would be nice to have a scripting language interface to UACalc.  Jython provides
+this. 
+
+Jython is an implementation of (the scripting language) Python in Java. It has
+the advantage (for us) that it can read Java libraries the the uacalc.jar
+library.  Therefore, the Jython interpreter can be used as a command line
+interface (CLI) to the UACalc.
 
 The [Scala programming language](http://www.scala-lang.org/) provides an
 alternative CLI to the UACalc, as briefly described
-[here](http://universalalgebra.wordpress.com/documentation/scala/scala-repl-with-uacalc-objects/). More support for Scala programming with UACalc packages
-is currently under active development. (For more info, please email
-[williamdemeo](https://github.com/williamdemeo) at gmail.)
+[here](http://universalalgebra.wordpress.com/documentation/scala/scala-repl-with-uacalc-objects/).
+More support for Scala programming with UACalc packages is currently under
+development. (For more info, please email [williamdemeo](https://github.com/williamdemeo) at gmail.)
 
+The next section describes a few ways to install and configure a command line
+version of UACalc.  Later sections show how to import UACalc classes from the Jython
+command line interpreter, and then use simple Python syntax to work with the
+resulting UACalc objects. 
 
 
 Installation
