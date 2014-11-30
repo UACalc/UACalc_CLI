@@ -4,9 +4,8 @@ UACalc_CLI
 This is the main Git repository for UACalc_CLI, which provides a command line
 interface to the [Universal Algebra Calculator](http://uacalc.org).
 You are now reading the contents of the README.md file, which explains how to
-set up the command line interface to the universal Algebra Calculator, and then
-gives a few examples demonstrating how to import and use UACalc classes on the
-command line. 
+set up the UACalc_CLI, and then gives a few examples demonstrating how to import
+and use UACalc classes on the command line. 
 
 ------------------------------------------
 
@@ -63,7 +62,7 @@ The [Scala programming language](http://www.scala-lang.org/) provides an
 alternative CLI to the UACalc, as briefly described
 [here](http://universalalgebra.wordpress.com/documentation/scala/scala-repl-with-uacalc-objects/).
 More support for Scala programming with UACalc packages is currently under
-development. (For more info, [contact williamdemeo](mailto:williamdemeo@gmail.com).)
+development. (For more info, [contact William DeMeo](mailto:williamdemeo@gmail.com).)
 
 The next section describes a few ways to install and configure a command line
 version of UACalc.  Later sections show how to import UACalc classes from the Jython
