@@ -63,6 +63,20 @@ with UACalc dependencies preconfigured. If you try any of the methods described
 below and you have problems, please
 [report the issue](https://github.com/UACalc/UACalc_CLI/issues). 
 
+**NOTE:** If you are already familiar with Jython, it's not absolutely necessary
+  to follow the full setup procedure described below. All you really need is the
+  [uacalc.jar](http://uacalc.org/uacalc.jar) file.  See the section below
+  [For Experienced Jython Users](#for-experienced-jython-users).
+  With that, you could start Jython and then do at least the following before
+  trying some of the examples in the
+  [UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/Examples) directory.
+
+        >>> import sys
+        >>> sys.path.append("/home/username/uacalc.jar")
+
+  (See the file UACalc_CLI/CLI/uacalc.py for other configuration options.)
+
+
 Method 1: simple tar file download
 ----------------------------------
 Assuming you already have Java installed, or you want to install it yourself, this 
@@ -204,14 +218,45 @@ The sample interactive session below does the following:
         >>> quit()
 
 
+------------------------------------------
+
+User feedback and contributions
+-------------------------------
+We depend on feedback from the user community.  If you find any that doesn't
+work, please open a new issue.
+
+On the other hand, if you have found the command line interface to UACalc useful
+in your work, please consider sharing some example code with the community.  You
+can email [Ralph Freese](mailto:ralph@math.hawaii.edu) or
+[William DeMeo](mailto:williamdemeo@gmail.com), or post to the
+[UACalc_CLI Wiki](https://github.com/UACalc/UACalc_CLI/wiki) (requires GitHub login). 
+
+----------------------------------------------
+
 Additional information
 ----------------------
 + [uacalc.org](http://uacalc.org) (the official UACalc website)
 + [universalalgebra.org](http://universalalgebra.wordpress.com/documentation/uacalc/)  
 + [williamdemeo.github.io/uacalc](http://williamdemeo.github.io/uacalc/)
 
+--------------------------------
 
---------------------------------------
+For Experienced Jython Users
+----------------------------
+If you are already familiar with Jython, it's not absolutely necessary
+to follow the setup procedure described above. All you really need is the
+[uacalc.jar](http://uacalc.org/uacalc.jar) file. With that file, you could start
+Jython and then invoke the following two commands:
+
+        >>> import sys
+        >>> sys.path.append("/home/username/uacalc.jar")
+
+Then you should already be able to try some of the examples described in the
+[UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/Examples) directory.
+
+See the file [UACalc_CLI/CLI/uacalc.py](https://github.com/UACalc/UACalc_CLI/CLI/uacalc.py) for other configuration options.
+
+-----------------------------------------------------
 
 Notes/reminders for administrators
 ----------------------------------
