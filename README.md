@@ -5,7 +5,12 @@ Introduction
 ============
 Jython is an implementation of (the scripting language) Python in Java. It has the advantage (for us) that it can read Java libraries the the uacalc.jar library.  Therefore, the Jython interpreter can be used as a command line interface (CLI) to the UACalc.  
 
-(The functional programming language Scala provides an alternative CLI to the UACalc, as described [here](http://universalalgebra.wordpress.com/documentation/scala/scala-repl-with-uacalc-objects/).)
+The [Scala programming language](http://www.scala-lang.org/) provides an
+alternative CLI to the UACalc, as briefly described
+[here](http://universalalgebra.wordpress.com/documentation/scala/scala-repl-with-uacalc-objects/). More support for Scala programming with UACalc packages
+is currently under active development. (For more info, please email
+[@williamdemeo](https://github.com/williamdemeo) at gmail.)
+
 
 
 Installation
