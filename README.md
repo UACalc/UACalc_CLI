@@ -16,7 +16,7 @@ There are three ways to install and configure the command line version of the UA
     UACalc_CLI/Examples
     UACalc_CLI/CLI
 
-including a script UACalc_CLI/CLI/uacalc which starts the Jython interpreter
+including a script `UACalc_CLI/CLI/uacalc` which starts the Jython interpreter
 with UACalc dependencies preconfigured. If you try any of the methods described
 below and you have problems, please
 [report the issue](https://github.com/UACalc/UACalc_CLI/issues). 
@@ -72,6 +72,10 @@ If you have git installed, you can clone this repository with, e.g.,
 
 This will give you everything you need to start using UACalc at the command
 line, as explained in the next section.
+
+(For UACalc team members, the notes below describe how to clone in such a way
+that GitHub won't ask for login credentials everytime you push changes to the
+repository.)
 
 
 Starting the UACalc CLI
@@ -173,6 +177,19 @@ To create a new tar file from the git repository, use the following commands:
 This excludes the git repository and the setup.sh file from the resulting UACalc_CLI.tar file.
 We might also consider the -u (update) option to only append files that are newer than 
 those already in the archive.
+
+If you have a GitHub account and have setup ssh-keys, you might prefer to clone
+the repository with the following command instead of the http version mentioned above.
+
+    git clone git@github.com:UACalc/UACalc_CLI.git
+
+That way GitHub won't ask for your credentials everytime you want to push
+something to the repo.  Alternatively, if you have already used the http method
+of cloning the repo, you can switch to ssh using the following command:
+
+    git remote set-url origin git@github.com:UACalc/UACalc_CLI.git
+
+See also: [GitHub doc on switching remote url](https://help.github.com/articles/changing-a-remote-s-url/#switching-remote-urls-from-https-to-ssh)
 
 ------------------------
 
