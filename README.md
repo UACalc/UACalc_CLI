@@ -1,8 +1,19 @@
+UACalc_CLI
+==========
+
+This is the main Git repository for UACalc_CLI, which provides a command line
+interface to the [Universal Algebra Calculator](http://uacalc.org).
+You are now reading the contents of the README.md file, which explains how to
+set up the command line interface to the universal Algebra Calculator, and then
+gives a few examples demonstrating how to import and use UACalc classes on the
+command line. 
+
+------------------------------------------
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
-- [UACalc_CLI](#uacalc_cli)
   - [Introduction and Motivation](#introduction-and-motivation)
   - [Installation](#installation)
     - [Method 1: simple tar file download](#method-1-simple-tar-file-download)
@@ -17,16 +28,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-UACalc_CLI
-==========
-
-This is the main Git repository for UACalc_CLI, which provides a command line
-interface to the [Universal Algebra Calculator](http://uacalc.org).
-You are now reading the contents of the README.md file, which explains how to
-set up the command line interface to the universal Algebra Calculator, and then
-gives a few examples demonstrating how to import and use UACalc classes on the
-command line. 
-
+----------------------------------------
 
 Introduction and Motivation
 ---------------------------
