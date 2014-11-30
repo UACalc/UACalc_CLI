@@ -31,9 +31,7 @@ Method 1: simple tar file download
 Assuming you already have Java installed, or you want to install it yourself, this 
 method may work for you and is probably the simplest.
 
-1.  Download the file
-
-        [http://uacalc.org/Jython/UACalc_CLI.tar](http://uacalc.org/Jython/UACalc_CLI.tar)
+1.  Download the file [http://uacalc.org/Jython/UACalc_CLI.tar](http://uacalc.org/Jython/UACalc_CLI.tar)
 
 2.  Extract this tar archive with a command like the following:
 
