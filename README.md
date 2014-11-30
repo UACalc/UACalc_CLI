@@ -170,10 +170,11 @@ UACalc methods.  For more examples, visit the
 [UACalc_CLI/Examples](https://github.com/UACalc/UACalc_CLI/tree/master/Examples) directory.
 
 You can call some "hidden" UACalc methods (that don't yet appear in the gui
-menu). For example, if you go to the javadoc link, click on CongruenceLattice on
-the left, you will find a method
+menu). For example, if you go visit the
+[UACalc javadocs](http://uacalc.org/doc/) and click on [CongruenceLattice](http://uacalc.org/doc/org/uacalc/alg/conlat/CongruenceLattice.html) in
+the lower left pane, you will find the method
 
-    commutator(BinaryRelation S, BinaryRelation T). 
+    [commutator(BinaryRelation S, BinaryRelation T)](http://uacalc.org/doc/org/uacalc/alg/conlat/CongruenceLattice.html#commutator)
 
 (There are also methods for the weak and strong rectangularity commutators, as well as centrality methods.)
 
