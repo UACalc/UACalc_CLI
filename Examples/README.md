@@ -20,64 +20,64 @@ packages**, for example,
         >>> from org.uacalc import alg
 
 2. **Instantiating classes** is much simpler in Python than in Java.
-For example, to define a BasicPartition object, like `|0,1|2,3|`, simply do
+   For example, to define a BasicPartition object, like `|0,1|2,3|`, simply do
 
         >>> a = alg.conlat.BasicPartition("|0,1|2,3|")
 
-It's even easier if we import the BasicPartition class first:
+   It's even easier if we import the BasicPartition class first:
 
         >>> from org.uacalc.alg.conlat import BasicPartition
         >>> a = BasicPartition("|0,1|2,3|")
 
-You can do catch-all imports with the * wildcard. For instance,
+   You can do catch-all imports with the * wildcard. For instance,
 
         >>> from org.uacalc.alg import *
         >>> a = conlat.BasicPartition("|0,1|2,3|")
 
-but you should use such import statements sparingly because they cause Jython to
-put wrappers around every class and method in the named package.
+   but you should use such import statements sparingly because they cause Jython to
+   put wrappers around every class and method in the named package.
 
 3. Once you have instantiated an object, you can invoke its `toString()` method
-by simply entering its name at the prompt: 
+   by simply entering its name at the prompt: 
 
         >>> a
         |0,1|2,3|
 
-Alternatively, you can `print` it:
+   Alternatively, you can `print` it:
 
         >>> print a
         |0,1|2,3|
 
 
-To summarize, let's go though a simple example from the beginning.
+   To summarize, let's go though a simple example from the beginning.
 
-    >>> from org.uacalc.alg import *
-    >>> a = conlat.BasicPartition("|0,1|2,3|")
-    >>> b = conlat.BasicPartition("|0|1,2|3|")
-    >>> a, b
-    (|0,1|2,3|, |0|1,2|3|)
-
-    >>> print a, b
-    |0,1|2,3| |0|1,2|3|
-    >>> c, d = a, b
-    >>> c, d
-    (|0,1|2,3|, |0|1,2|3|)
-    >>> compab = a.compose(b)
-    >>> compab
-    [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2], [2, 1], [2, 2], [2, 3], [3, 1], [3, 2], [3, 3]]
-    >>> parts = a, b, c, d
-    >>> parts
-    (|0,1|2,3|, |0|1,2|3|, |0,1|2,3|, |0|1,2|3|)
-    >>> for p in parts:
-    ...     p.rank()
-    ... 
-    2
-    1
-    2
-    1
+        >>> from org.uacalc.alg import *
+        >>> a = conlat.BasicPartition("|0,1|2,3|")
+        >>> b = conlat.BasicPartition("|0|1,2|3|")
+        >>> a, b
+        (|0,1|2,3|, |0|1,2|3|)
+    
+        >>> print a, b
+        |0,1|2,3| |0|1,2|3|
+        >>> c, d = a, b
+        >>> c, d
+        (|0,1|2,3|, |0|1,2|3|)
+        >>> compab = a.compose(b)
+        >>> compab
+        [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2], [2, 1], [2, 2], [2, 3], [3, 1], [3, 2], [3, 3]]
+        >>> parts = a, b, c, d
+        >>> parts
+        (|0,1|2,3|, |0|1,2|3|, |0,1|2,3|, |0|1,2|3|)
+        >>> for p in parts:
+        ...     p.rank()
+        ... 
+        2
+        1
+        2
+        1
 
 ## Constructing algebras
-
+(coming soon)
 
 ## The commutator
 You can call some of the UACalc's "hidden methods" (that don't appear in the gui
