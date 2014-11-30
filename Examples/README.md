@@ -1,14 +1,24 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [Examples](#examples)
+  - [First Steps: composing partitions](#first-steps-composing-partitions)
+  - [Constructing algebras](#constructing-algebras)
+  - [The commutator](#the-commutator)
+  - [Batch testing](#batch-testing)
+  - [More information](#more-information)
+  - [User feedback and contributions](#user-feedback-and-contributions)
+  - [References](#references)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 Examples
 ========
 To get some idea of some of the basic things that are possible, look at the file
 AlgebraConstructionExample.py. This is an example script
 showing how to use Python to construct an algebra. Below are some other
 examples (with more to follow).
-
-+ [First Steps: composing partitions](#first-steps:-composing-partitions)
-+ [Constructing algebras](#constructing-algebras)
-+ [The commutator](#the-commutator)
-+ [Batch testing](#batch-testing)
 
 ---------------------------------------------
 

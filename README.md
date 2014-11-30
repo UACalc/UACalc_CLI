@@ -1,3 +1,22 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [UACalc_CLI](#uacalc_cli)
+  - [Introduction and Motivation](#introduction-and-motivation)
+  - [Installation](#installation)
+    - [Method 1: simple tar file download](#method-1-simple-tar-file-download)
+    - [Method 2: automatic setup script for Ubuntu](#method-2-automatic-setup-script-for-ubuntu)
+    - [Method 3: clone this git repository](#method-3-clone-this-git-repository)
+  - [Starting the UACalc CLI](#starting-the-uacalc-cli)
+  - [An interactive session](#an-interactive-session)
+  - [User feedback and contributions](#user-feedback-and-contributions)
+  - [Additional information](#additional-information)
+  - [For Experienced Jython Users](#for-experienced-jython-users)
+  - [Notes/reminders for administrators](#notesreminders-for-administrators)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 UACalc_CLI
 ==========
 
@@ -68,8 +87,7 @@ below and you have problems, please
   [uacalc.jar](http://uacalc.org/uacalc.jar) file.  See the section below
   [For Experienced Jython Users](#for-experienced-jython-users).
 
-Method 1: simple tar file download
-----------------------------------
+### Method 1: simple tar file download
 Assuming you already have Java installed, or you want to install it yourself, this 
 method may work for you and is probably the simplest.
 
@@ -90,7 +108,6 @@ method may work for you and is probably the simplest.
 
 To start using UACalc at the command line, see section
 [Starting the UACalc CLI](#starting-the-uacalc-cli) below.
-
 
 ### Method 2: automatic setup script for Ubuntu
 The [setup.sh](https://raw.githubusercontent.com/UACalc/UACalc_CLI/master/setup.sh)
