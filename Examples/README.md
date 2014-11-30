@@ -106,8 +106,9 @@ separately, you can run the file with
 
 ## The commutator
 You can call some of the UACalc's "hidden methods" (that don't appear in the gui
-menu). For example, if you look at the [UACalc Javadoc](http://uacalc.org/doc/),
-and click on CongruenceLattice on the left, you will find a method 
+menu). For example, if you go visit the
+[UACalc javadocs](http://uacalc.org/doc/) and click on [CongruenceLattice](http://uacalc.org/doc/org/uacalc/alg/conlat/CongruenceLattice.html) in
+the lower left pane, you will find the [commutator](http://uacalc.org/doc/org/uacalc/alg/conlat/CongruenceLattice.html#commutator) method,
 
     commutator(BinaryRelation S, BinaryRelation T)
 
